@@ -15,7 +15,7 @@ public struct TaskDTO {
     public let title: String
     public let completed: Bool
 
-    public init(userId: String, id: String, title: String, completed: Bool){
+    public init(userId: String, id: String, title: String, completed: Bool) {
         self.userId = userId
         self.id = id
         self.title = title
