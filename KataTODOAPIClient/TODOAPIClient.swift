@@ -52,4 +52,12 @@ public class TODOAPIClient {
         }
     }
 
+    public func deleteTaskById(id: String, completion: (Result<Void, TODOAPIClientError>) -> ()) {
+        botham.DELETE("\(TODOAPIClientConfig.tasksEndpoint)/\(id)") { result in
+            result.mapJSON { json in
+                completion(Result.Success())
+                }.mapErrorToTODOAPIClientError()
+        }
+    }
+
 }
