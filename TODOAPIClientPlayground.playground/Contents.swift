@@ -1,0 +1,17 @@
+//: TODOAPIClient Playground
+
+import XCPlayground
+import KataTODOAPIClient
+import Result
+
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+
+let apiClient = TODOAPIClient()
+
+apiClient.getAll { result in
+    if let tasks = result.value {
+        tasks.forEach {
+            print($0)
+        }
+    }
+}
