@@ -23,19 +23,19 @@ public class TODOAPIClient {
 
     public func getAllTasks(completion: (Result<[TaskDTO], TODOAPIClientError>) -> ()) {
         botham.GET(TODOAPIClientConfig.tasksEndpoint) { result in
-            result.mapJSON { json in
+            completion(result.mapJSON { json -> [TaskDTO] in
                 let tasks: [TaskDTO] = self.parser.fromJSON(json)
-                completion(Result.Success(tasks))
-            }.mapErrorToTODOAPIClientError()
+                return tasks
+            }.mapErrorToTODOAPIClientError())
         }
     }
 
     public func getTaskById(id: String, completion: (Result<TaskDTO, TODOAPIClientError>) -> ()) {
         botham.GET("\(TODOAPIClientConfig.tasksEndpoint)/\(id)") { result in
-            result.mapJSON { json in
+            completion(result.mapJSON { json -> TaskDTO in
                 let task: TaskDTO = self.parser.fromJSON(json)
-                completion(Result.Success(task))
-            }.mapErrorToTODOAPIClientError()
+                return task
+            }.mapErrorToTODOAPIClientError())
         }
     }
 
@@ -45,18 +45,18 @@ public class TODOAPIClient {
             body: ["userId": userId,
                     "title": title,
                     "completed": completed]) { result in
-            result.mapJSON { json in
+            completion(result.mapJSON { json -> TaskDTO in
                 let task: TaskDTO = self.parser.fromJSON(json)
-                completion(Result.Success(task))
-            }.mapErrorToTODOAPIClientError()
+                return task
+            }.mapErrorToTODOAPIClientError())
         }
     }
 
     public func deleteTaskById(id: String, completion: (Result<Void, TODOAPIClientError>) -> ()) {
         botham.DELETE("\(TODOAPIClientConfig.tasksEndpoint)/\(id)") { result in
-            result.mapJSON { json in
-                completion(Result.Success())
-            }.mapErrorToTODOAPIClientError()
+            completion(result.map { _ -> Void in
+                return
+            }.mapErrorToTODOAPIClientError())
         }
     }
 
@@ -67,10 +67,10 @@ public class TODOAPIClient {
                     "userId": task.userId,
                     "title": task.title,
                     "completed": task.completed]) { result in
-                        result.mapJSON { json in
+                        completion(result.mapJSON { json -> TaskDTO in
                             let task: TaskDTO = self.parser.fromJSON(json)
-                            completion(Result.Success(task))
-                        }.mapErrorToTODOAPIClientError()
+                            return task
+                        }.mapErrorToTODOAPIClientError())
             }
     }
 

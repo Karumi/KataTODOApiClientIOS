@@ -18,6 +18,10 @@
 		EB28C8881C6DDB1F004A5E74 /* TODOAPIClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C8871C6DDB1F004A5E74 /* TODOAPIClientError.swift */; };
 		EB28C88A1C6DDBF8004A5E74 /* TaskDTOParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C8891C6DDBF8004A5E74 /* TaskDTOParser.swift */; };
 		EB28C88D1C6DF109004A5E74 /* NocillaTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C88C1C6DF109004A5E74 /* NocillaTestCase.swift */; };
+		EB28C88F1C6DF13D004A5E74 /* TODOAPIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C88E1C6DF13D004A5E74 /* TODOAPIClientTests.swift */; };
+		EB28C8921C6DFC23004A5E74 /* getTasksResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EB28C8911C6DFC23004A5E74 /* getTasksResponse.json */; };
+		EB28C8951C6DFDE7004A5E74 /* NSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C8941C6DFDE7004A5E74 /* NSError.swift */; };
+		EB28C8971C6DFE37004A5E74 /* TODOAPIClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C8961C6DFE37004A5E74 /* TODOAPIClientError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +51,10 @@
 		EB28C8891C6DDBF8004A5E74 /* TaskDTOParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskDTOParser.swift; sourceTree = "<group>"; };
 		EB28C88B1C6DDE7B004A5E74 /* TODOAPIClientPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = TODOAPIClientPlayground.playground; sourceTree = "<group>"; };
 		EB28C88C1C6DF109004A5E74 /* NocillaTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NocillaTestCase.swift; sourceTree = "<group>"; };
+		EB28C88E1C6DF13D004A5E74 /* TODOAPIClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TODOAPIClientTests.swift; sourceTree = "<group>"; };
+		EB28C8911C6DFC23004A5E74 /* getTasksResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = getTasksResponse.json; sourceTree = "<group>"; };
+		EB28C8941C6DFDE7004A5E74 /* NSError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSError.swift; sourceTree = "<group>"; };
+		EB28C8961C6DFE37004A5E74 /* TODOAPIClientError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TODOAPIClientError.swift; sourceTree = "<group>"; };
 		F06AD546F4EC015C4AEB6C1F /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1FE7148F6B960532B04162E /* Pods_KataTODOAPIClientTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KataTODOAPIClientTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F580F03C90793ABC52D3DBF6 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -133,7 +141,10 @@
 			isa = PBXGroup;
 			children = (
 				EB28C88C1C6DF109004A5E74 /* NocillaTestCase.swift */,
+				EB28C88E1C6DF13D004A5E74 /* TODOAPIClientTests.swift */,
 				EB28C8721C6DD32A004A5E74 /* Info.plist */,
+				EB28C8931C6DFDD8004A5E74 /* Extensions */,
+				EB28C8901C6DFC08004A5E74 /* JSON */,
 			);
 			path = KataTODOAPIClientTests;
 			sourceTree = "<group>";
@@ -168,6 +179,23 @@
 				EB28C8871C6DDB1F004A5E74 /* TODOAPIClientError.swift */,
 			);
 			name = Errors;
+			sourceTree = "<group>";
+		};
+		EB28C8901C6DFC08004A5E74 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				EB28C8911C6DFC23004A5E74 /* getTasksResponse.json */,
+			);
+			name = JSON;
+			sourceTree = "<group>";
+		};
+		EB28C8931C6DFDD8004A5E74 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				EB28C8941C6DFDE7004A5E74 /* NSError.swift */,
+				EB28C8961C6DFE37004A5E74 /* TODOAPIClientError.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,6 +301,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB28C8921C6DFC23004A5E74 /* getTasksResponse.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -374,7 +403,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB28C8971C6DFE37004A5E74 /* TODOAPIClientError.swift in Sources */,
 				EB28C88D1C6DF109004A5E74 /* NocillaTestCase.swift in Sources */,
+				EB28C88F1C6DF13D004A5E74 /* TODOAPIClientTests.swift in Sources */,
+				EB28C8951C6DFDE7004A5E74 /* NSError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
