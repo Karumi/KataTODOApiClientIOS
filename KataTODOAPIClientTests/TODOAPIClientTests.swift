@@ -146,18 +146,6 @@ class TODOAPIClientTests: NocillaTestCase {
         assertTaskContainsExpectedValues((result?.value)!)
     }
 
-    func testReturnsNetworkErrorIfThereIsNoConnection() {
-        stubRequest("POST", "http://jsonplaceholder.typicode.com/todos")
-            .andFailWithError(NSError.networkError())
-
-        var result: Result<TaskDTO, TODOAPIClientError>?
-        apiClient.addTaskToUser("1", title: "delectus aut autem", completed: false) { response in
-            result = response
-        }
-
-        expect(result?.error).toEventually(equal(TODOAPIClientError.NetworkError))
-    }
-
     func testReturnsNetworkErrorIfThereIsNoConnectionAddinATask() {
         stubRequest("POST", "http://jsonplaceholder.typicode.com/todos")
             .andFailWithError(NSError.networkError())
