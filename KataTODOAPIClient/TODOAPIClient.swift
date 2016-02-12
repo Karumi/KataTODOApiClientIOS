@@ -44,7 +44,7 @@ public class TODOAPIClient {
         botham.POST(TODOAPIClientConfig.tasksEndpoint,
             body: ["userId": userId,
                     "title": title,
-                    "completed": completed]){ result in
+                    "completed": completed]) { result in
             result.mapJSON { json in
                 let task: TaskDTO = self.parser.fromJSON(json)
                 completion(Result.Success(task))
@@ -66,7 +66,7 @@ public class TODOAPIClient {
                 body: ["id": task.id,
                     "userId": task.userId,
                     "title": task.title,
-                    "completed": task.completed]){ result in
+                    "completed": task.completed]) { result in
                         result.mapJSON { json in
                             let task: TaskDTO = self.parser.fromJSON(json)
                             completion(Result.Success(task))
