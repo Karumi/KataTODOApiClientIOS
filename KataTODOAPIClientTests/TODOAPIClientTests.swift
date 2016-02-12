@@ -57,6 +57,18 @@ class TODOAPIClientTests: NocillaTestCase {
         expect(result?.error).toEventually(equal(TODOAPIClientError.NetworkError))
     }
 
+    func testReturnsUnknowErrorIfTheErrorIsNotHandled() {
+        stubRequest("GET", "http://jsonplaceholder.typicode.com/todos")
+            .andReturn(418)
+
+        var result: Result<[TaskDTO], TODOAPIClientError>?
+        apiClient.getAllTasks { response in
+            result = response
+        }
+
+        expect(result?.error).toEventually(equal(TODOAPIClientError.UnknownError(code: 418)))
+    }
+
     private func assertTaskContainsExpectedValues(task: TaskDTO) {
         expect(task.id).to(equal("1"))
         expect(task.userId).to(equal("1"))
