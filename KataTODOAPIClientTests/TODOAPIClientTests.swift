@@ -154,7 +154,6 @@ class TODOAPIClientTests: NocillaTestCase {
             result = response
         }
 
-
         expect(result?.error).toEventually(equal(TODOAPIClientError.NetworkError))
     }
 
@@ -166,7 +165,6 @@ class TODOAPIClientTests: NocillaTestCase {
         apiClient.addTaskToUser("1", title: "delectus aut autem", completed: false) { response in
             result = response
         }
-
 
         expect(result?.error).toEventually(equal(TODOAPIClientError.NetworkError))
     }
@@ -180,6 +178,53 @@ class TODOAPIClientTests: NocillaTestCase {
             result = response
         }
 
+        expect(result?.error).toEventually(equal(TODOAPIClientError.UnknownError(code: 418)))
+    }
+
+    func testDeletesATask() {
+        stubRequest("DELETE", "http://jsonplaceholder.typicode.com/todos/1")
+            .andReturn(200)
+
+        var result: Result<Void, TODOAPIClientError>?
+        apiClient.deleteTaskById("1") { response in
+            result = response
+        }
+
+        expect(result).toEventuallyNot(beNil())
+    }
+
+    func testReturnsItemNotFoundIfThereIsNoTaskWithIdTheAssociateId() {
+        stubRequest("DELETE", "http://jsonplaceholder.typicode.com/todos/1")
+            .andReturn(404)
+
+        var result: Result<Void, TODOAPIClientError>?
+        apiClient.deleteTaskById("1") { response in
+            result = response
+        }
+
+        expect(result?.error).toEventually(equal(TODOAPIClientError.ItemNotFound))
+    }
+
+    func testReturnsNetworkErrorIfThereIsNoConnectionDeletingTask() {
+        stubRequest("DELETE", "http://jsonplaceholder.typicode.com/todos/1")
+            .andFailWithError(NSError.networkError())
+
+        var result: Result<Void, TODOAPIClientError>?
+        apiClient.deleteTaskById("1") { response in
+            result = response
+        }
+
+        expect(result?.error).toEventually(equal(TODOAPIClientError.NetworkError))
+    }
+
+    func testReturnsUnknownErrorIfThereIsAnyErrorDeletingTask() {
+        stubRequest("DELETE", "http://jsonplaceholder.typicode.com/todos/1")
+            .andReturn(418)
+
+        var result: Result<Void, TODOAPIClientError>?
+        apiClient.deleteTaskById("1") { response in
+            result = response
+        }
 
         expect(result?.error).toEventually(equal(TODOAPIClientError.UnknownError(code: 418)))
     }
