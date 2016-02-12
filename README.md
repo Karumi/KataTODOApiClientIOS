@@ -14,6 +14,8 @@ This repository contains an API client to interact with a remote service we can 
 
 This APIClient is based on one class with name ``TODOAPIClient`` containing some methos to interact with the API. Using this class we can get all the tasks we have created before, get a task using the task id, add a new task, update a task or delete an already created task.
 
+The API client has been implemented using a networking framework named [BothamNetworking][bothamnetworking]. Review the project documentation if needed.
+
 ## Tasks
 
 Your task as iOS Developer is to **write all the integration tests** needed to check if the API Client is working as it should. 
@@ -56,6 +58,7 @@ There are some links which can be useful to finish these tasks:
 
 * [Nocilla official documentation][nocilla]
 * [Nimble documentation][nimble]
+* [BothamNetworking documentation][bothamnetworking]
 * [World-Class Testing Development Pipeline for Android - Part 3][wordl-class-testing-development-pipeline]
 
 #License
@@ -80,3 +83,4 @@ limitations under the License.
 [testDoubles]: http://www.martinfowler.com/bliki/TestDouble.html
 [jsonplaceholder]: http://jsonplaceholder.typicode.com/
 [wordl-class-testing-development-pipeline]: http://blog.karumi.com/world-class-testing-development-pipeline-for-android-part-3/
+[bothamnetworking]: https://github.com/Karumi/BothamNetworking
