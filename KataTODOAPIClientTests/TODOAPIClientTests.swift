@@ -21,7 +21,6 @@ class TODOAPIClientTests: NocillaTestCase {
         stubRequest("GET", "http://jsonplaceholder.typicode.com/todos")
             .withHeaders(["Content-Type": "application/json", "Accept": "application/json"])
             .andReturn(200)
-            .withBody(fromJSONFile("getTasksResponse"))
 
         var result: Result<[TaskDTO], TODOAPIClientError>?
         apiClient.getAllTasks { response in
@@ -115,6 +114,72 @@ class TODOAPIClientTests: NocillaTestCase {
         apiClient.getTaskById("1") { response in
             result = response
         }
+
+        expect(result?.error).toEventually(equal(TODOAPIClientError.UnknownError(code: 418)))
+    }
+
+    func testSendsTheCorrectBodyAddingANewTask() {
+        stubRequest("POST", "http://jsonplaceholder.typicode.com/todos")
+            .withBody(fromJSONFile("addTaskToUserRequest"))
+            .andReturn(201)
+
+        var result: Result<TaskDTO, TODOAPIClientError>?
+        apiClient.addTaskToUser("1", title: "Finish this kata", completed: false) { response in
+            result = response
+        }
+
+        expect(result).toEventuallyNot(beNil())
+    }
+
+    func testParsesTheTaskCreatedProperlyAddingANewTask() {
+        stubRequest("POST", "http://jsonplaceholder.typicode.com/todos")
+            .andReturn(201)
+            .withBody(fromJSONFile("addTaskToUserResponse"))
+
+        var result: Result<TaskDTO, TODOAPIClientError>?
+        apiClient.addTaskToUser("1", title: "delectus aut autem", completed: false) { response in
+            result = response
+        }
+
+        expect(result).toEventuallyNot(beNil())
+        assertTaskContainsExpectedValues((result?.value)!)
+    }
+
+    func testReturnsNetworkErrorIfThereIsNoConnection() {
+        stubRequest("POST", "http://jsonplaceholder.typicode.com/todos")
+            .andFailWithError(NSError.networkError())
+
+        var result: Result<TaskDTO, TODOAPIClientError>?
+        apiClient.addTaskToUser("1", title: "delectus aut autem", completed: false) { response in
+            result = response
+        }
+
+
+        expect(result?.error).toEventually(equal(TODOAPIClientError.NetworkError))
+    }
+
+    func testReturnsNetworkErrorIfThereIsNoConnectionAddinATask() {
+        stubRequest("POST", "http://jsonplaceholder.typicode.com/todos")
+            .andFailWithError(NSError.networkError())
+
+        var result: Result<TaskDTO, TODOAPIClientError>?
+        apiClient.addTaskToUser("1", title: "delectus aut autem", completed: false) { response in
+            result = response
+        }
+
+
+        expect(result?.error).toEventually(equal(TODOAPIClientError.NetworkError))
+    }
+
+    func testReturnsUnknowErrorIfThereIsAnyErrorAddingATask() {
+        stubRequest("POST", "http://jsonplaceholder.typicode.com/todos")
+            .andReturn(418)
+
+        var result: Result<TaskDTO, TODOAPIClientError>?
+        apiClient.addTaskToUser("1", title: "delectus aut autem", completed: false) { response in
+            result = response
+        }
+
 
         expect(result?.error).toEventually(equal(TODOAPIClientError.UnknownError(code: 418)))
     }
