@@ -13,14 +13,21 @@ import Result
 public class TODOAPIClient {
 
     private let botham: BothamAPIClient
+    private let parser: TaskDTOParser
 
     public init() {
         self.botham = BothamAPIClient(baseEndpoint: TODOAPIClientConfig.baseEndpoint)
         self.botham.requestInterceptors.append(DefaultHeadersInterceptor())
+        self.parser = TaskDTOParser()
     }
 
-
-
-
+    public func getAll(completion: (Result<[TaskDTO], TODOAPIClientError>) -> ()) {
+        botham.GET(TODOAPIClientConfig.tasksEndpoint) { result in
+            result.mapJSON { json in
+                let tasks: [TaskDTO] = self.parser.fromJSON(json)
+                completion(Result.Success(tasks))
+            }.mapErrorToTODOAPIClientError()
+        }
+    }
 
 }

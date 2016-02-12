@@ -17,6 +17,7 @@
 		EB28C8811C6DD7CA004A5E74 /* TaskDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C8801C6DD7CA004A5E74 /* TaskDTO.swift */; };
 		EB28C8851C6DDA56004A5E74 /* DefaultHeadersRequestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C8841C6DDA56004A5E74 /* DefaultHeadersRequestInterceptor.swift */; };
 		EB28C8881C6DDB1F004A5E74 /* TODOAPIClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C8871C6DDB1F004A5E74 /* TODOAPIClientError.swift */; };
+		EB28C88A1C6DDBF8004A5E74 /* TaskDTOParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C8891C6DDBF8004A5E74 /* TaskDTOParser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		EB28C8801C6DD7CA004A5E74 /* TaskDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskDTO.swift; sourceTree = "<group>"; };
 		EB28C8841C6DDA56004A5E74 /* DefaultHeadersRequestInterceptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultHeadersRequestInterceptor.swift; sourceTree = "<group>"; };
 		EB28C8871C6DDB1F004A5E74 /* TODOAPIClientError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TODOAPIClientError.swift; sourceTree = "<group>"; };
+		EB28C8891C6DDBF8004A5E74 /* TaskDTOParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskDTOParser.swift; sourceTree = "<group>"; };
 		F06AD546F4EC015C4AEB6C1F /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1FE7148F6B960532B04162E /* Pods_KataTODOAPIClientTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KataTODOAPIClientTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F580F03C90793ABC52D3DBF6 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 		EB28C8821C6DD9FA004A5E74 /* Parser */ = {
 			isa = PBXGroup;
 			children = (
+				EB28C8891C6DDBF8004A5E74 /* TaskDTOParser.swift */,
 			);
 			name = Parser;
 			sourceTree = "<group>";
@@ -357,6 +360,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB28C8811C6DD7CA004A5E74 /* TaskDTO.swift in Sources */,
+				EB28C88A1C6DDBF8004A5E74 /* TaskDTOParser.swift in Sources */,
 				EB28C87C1C6DD72A004A5E74 /* TODOAPIClient.swift in Sources */,
 				EB28C8881C6DDB1F004A5E74 /* TODOAPIClientError.swift in Sources */,
 				EB28C8851C6DDA56004A5E74 /* DefaultHeadersRequestInterceptor.swift in Sources */,
