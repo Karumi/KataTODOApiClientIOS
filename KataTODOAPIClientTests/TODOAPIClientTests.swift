@@ -16,6 +16,7 @@ import Result
 class TODOAPIClientTests: NocillaTestCase {
 
     private let apiClient = TODOAPIClient()
+    private let anyTask = TaskDTO(userId: "1", id: "2", title: "Finish this kata", completed: true)
 
     func testSendsContentTypeHeader() {
         stubRequest("GET", "http://jsonplaceholder.typicode.com/todos")
@@ -181,7 +182,7 @@ class TODOAPIClientTests: NocillaTestCase {
         expect(result?.error).toEventually(equal(TODOAPIClientError.UnknownError(code: 418)))
     }
 
-    func testDeletesATask() {
+    func testSendsTheRequestToTheCorrectPathDeletingATask() {
         stubRequest("DELETE", "http://jsonplaceholder.typicode.com/todos/1")
             .andReturn(200)
 
@@ -191,6 +192,7 @@ class TODOAPIClientTests: NocillaTestCase {
         }
 
         expect(result).toEventuallyNot(beNil())
+        expect(result?.error).to(beNil())
     }
 
     func testReturnsItemNotFoundIfThereIsNoTaskWithIdTheAssociateId() {
@@ -229,11 +231,81 @@ class TODOAPIClientTests: NocillaTestCase {
         expect(result?.error).toEventually(equal(TODOAPIClientError.UnknownError(code: 418)))
     }
 
+    func testSendsTheExpectedBodyUpdatingATask() {
+        stubRequest("PUT", "http://jsonplaceholder.typicode.com/todos/\(anyTask.id)")
+            .withBody(fromJSONFile("updateTaskRequest"))
+            .andReturn(200)
+
+        var result: Result<TaskDTO, TODOAPIClientError>?
+        apiClient.updateTask(anyTask) { response in
+            result = response
+        }
+
+        expect(result).toEventuallyNot(beNil())
+    }
+
+    func testParsesTheTaskProperlyUpdatingATask() {
+        stubRequest("PUT", "http://jsonplaceholder.typicode.com/todos/\(anyTask.id)")
+            .andReturn(200)
+            .withBody(fromJSONFile("updateTaskResponse"))
+
+        var result: Result<TaskDTO, TODOAPIClientError>?
+        apiClient.updateTask(anyTask) { response in
+            result = response
+        }
+
+        expect(result).toEventuallyNot(beNil())
+        assertUpdatedTaskContainsExpectedValues((result?.value)!)
+    }
+
+    func testReturnsNetworkErrorIfThereIsNoConnectionUpdatingATask() {
+        stubRequest("PUT", "http://jsonplaceholder.typicode.com/todos/\(anyTask.id)")
+            .andFailWithError(NSError.networkError())
+
+        var result: Result<TaskDTO, TODOAPIClientError>?
+        apiClient.updateTask(anyTask) { response in
+            result = response
+        }
+
+        expect(result?.error).toEventually(equal(TODOAPIClientError.NetworkError))
+    }
+
+    func testReturnsItemNotFoundErrorIfThereIsNoTaksToUpdateWithTheUsedId() {
+        stubRequest("PUT", "http://jsonplaceholder.typicode.com/todos/\(anyTask.id)")
+            .andReturn(404)
+
+        var result: Result<TaskDTO, TODOAPIClientError>?
+        apiClient.updateTask(anyTask) { response in
+            result = response
+        }
+
+        expect(result?.error).toEventually(equal(TODOAPIClientError.ItemNotFound))
+    }
+
+    func testReturnsUnknowErrorIfThereIsAnyHandledErrorUpdatingATask() {
+        stubRequest("PUT", "http://jsonplaceholder.typicode.com/todos/\(anyTask.id)")
+            .andReturn(418)
+
+        var result: Result<TaskDTO, TODOAPIClientError>?
+        apiClient.updateTask(anyTask) { response in
+            result = response
+        }
+
+        expect(result?.error).toEventually(equal(TODOAPIClientError.UnknownError(code: 418)))
+    }
+
     private func assertTaskContainsExpectedValues(task: TaskDTO) {
         expect(task.id).to(equal("1"))
         expect(task.userId).to(equal("1"))
         expect(task.title).to(equal("delectus aut autem"))
         expect(task.completed).to(beFalse())
+    }
+
+    private func assertUpdatedTaskContainsExpectedValues(task: TaskDTO) {
+        expect(task.id).to(equal("2"))
+        expect(task.userId).to(equal("1"))
+        expect(task.title).to(equal("Finish this kata"))
+        expect(task.completed).to(beTrue())
     }
 
 }

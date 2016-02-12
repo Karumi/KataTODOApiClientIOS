@@ -25,6 +25,8 @@
 		EB28C8991C6E00D5004A5E74 /* getTaskByIdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EB28C8981C6E00D5004A5E74 /* getTaskByIdResponse.json */; };
 		EB28C89B1C6E0327004A5E74 /* addTaskToUserRequest.json in Resources */ = {isa = PBXBuildFile; fileRef = EB28C89A1C6E0327004A5E74 /* addTaskToUserRequest.json */; };
 		EB28C89D1C6E0364004A5E74 /* addTaskToUserResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EB28C89C1C6E0364004A5E74 /* addTaskToUserResponse.json */; };
+		EB28C89F1C6E1E26004A5E74 /* updateTaskRequest.json in Resources */ = {isa = PBXBuildFile; fileRef = EB28C89E1C6E1E26004A5E74 /* updateTaskRequest.json */; };
+		EB28C8A11C6E1EFC004A5E74 /* updateTaskResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EB28C8A01C6E1EFC004A5E74 /* updateTaskResponse.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +63,8 @@
 		EB28C8981C6E00D5004A5E74 /* getTaskByIdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = getTaskByIdResponse.json; sourceTree = "<group>"; };
 		EB28C89A1C6E0327004A5E74 /* addTaskToUserRequest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = addTaskToUserRequest.json; sourceTree = "<group>"; };
 		EB28C89C1C6E0364004A5E74 /* addTaskToUserResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = addTaskToUserResponse.json; sourceTree = "<group>"; };
+		EB28C89E1C6E1E26004A5E74 /* updateTaskRequest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = updateTaskRequest.json; sourceTree = "<group>"; };
+		EB28C8A01C6E1EFC004A5E74 /* updateTaskResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = updateTaskResponse.json; sourceTree = "<group>"; };
 		F06AD546F4EC015C4AEB6C1F /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1FE7148F6B960532B04162E /* Pods_KataTODOAPIClientTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KataTODOAPIClientTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F580F03C90793ABC52D3DBF6 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -194,6 +198,8 @@
 				EB28C8981C6E00D5004A5E74 /* getTaskByIdResponse.json */,
 				EB28C89A1C6E0327004A5E74 /* addTaskToUserRequest.json */,
 				EB28C89C1C6E0364004A5E74 /* addTaskToUserResponse.json */,
+				EB28C89E1C6E1E26004A5E74 /* updateTaskRequest.json */,
+				EB28C8A01C6E1EFC004A5E74 /* updateTaskResponse.json */,
 			);
 			name = JSON;
 			sourceTree = "<group>";
@@ -310,9 +316,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB28C8A11C6E1EFC004A5E74 /* updateTaskResponse.json in Resources */,
 				EB28C89B1C6E0327004A5E74 /* addTaskToUserRequest.json in Resources */,
 				EB28C8991C6E00D5004A5E74 /* getTaskByIdResponse.json in Resources */,
 				EB28C89D1C6E0364004A5E74 /* addTaskToUserResponse.json in Resources */,
+				EB28C89F1C6E1E26004A5E74 /* updateTaskRequest.json in Resources */,
 				EB28C8921C6DFC23004A5E74 /* getTasksResponse.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
