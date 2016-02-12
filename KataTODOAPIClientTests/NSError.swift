@@ -15,5 +15,5 @@ extension NSError {
             code: NSURLErrorNetworkConnectionLost,
             userInfo: nil)
     }
-    
+
 }
