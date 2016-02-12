@@ -30,4 +30,13 @@ public class TODOAPIClient {
         }
     }
 
+    public func getByTaskId(id: String, completion: (Result<TaskDTO, TODOAPIClientError>) -> ()) {
+        botham.GET("\(TODOAPIClientConfig.tasksEndpoint)/\(id)") { result in
+            result.mapJSON { json in
+                let task: TaskDTO = self.parser.fromJSON(json)
+                completion(Result.Success(task))
+                }.mapErrorToTODOAPIClientError()
+        }
+    }
+
 }

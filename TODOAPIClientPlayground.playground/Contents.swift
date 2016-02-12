@@ -15,3 +15,9 @@ apiClient.getAll { result in
         }
     }
 }
+
+apiClient.getByTaskId("1") { result in
+    if let task = result.value {
+        print(task)
+    }
+}
