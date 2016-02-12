@@ -45,7 +45,7 @@ class TODOAPIClientTests: NocillaTestCase {
         assertTaskContainsExpectedValues((result?.value?[0])!)
     }
 
-    func testReturnsNetworkErrorIfThereIsNoConnection() {
+    func testReturnsNetworkErrorIfThereIsNoConnectionGettingAllTasks() {
         stubRequest("GET", "http://jsonplaceholder.typicode.com/todos")
             .andFailWithError(NSError.networkError())
 
@@ -57,12 +57,62 @@ class TODOAPIClientTests: NocillaTestCase {
         expect(result?.error).toEventually(equal(TODOAPIClientError.NetworkError))
     }
 
-    func testReturnsUnknowErrorIfTheErrorIsNotHandled() {
+    func testReturnsUnknowErrorIfTheErrorIsNotHandledGettingAllTasks() {
         stubRequest("GET", "http://jsonplaceholder.typicode.com/todos")
             .andReturn(418)
 
         var result: Result<[TaskDTO], TODOAPIClientError>?
         apiClient.getAllTasks { response in
+            result = response
+        }
+
+        expect(result?.error).toEventually(equal(TODOAPIClientError.UnknownError(code: 418)))
+    }
+
+    func testParsesTaskProperlyGettingTaskById() {
+        stubRequest("GET", "http://jsonplaceholder.typicode.com/todos/1")
+            .andReturn(200)
+            .withBody(fromJSONFile("getTaskByIdResponse"))
+
+        var result: Result<TaskDTO, TODOAPIClientError>?
+        apiClient.getTaskById("1") { response in
+            result = response
+        }
+
+        expect(result).toEventuallyNot(beNil())
+        assertTaskContainsExpectedValues((result?.value)!)
+    }
+
+    func testReturnsItemNotFoundErrorIfTheTaskIdDoesNotExist() {
+        stubRequest("GET", "http://jsonplaceholder.typicode.com/todos/1")
+            .andReturn(404)
+
+        var result: Result<TaskDTO, TODOAPIClientError>?
+        apiClient.getTaskById("1") { response in
+            result = response
+        }
+
+        expect(result?.error).toEventually(equal(TODOAPIClientError.ItemNotFound))
+    }
+
+    func testReturnsNetworkErrorIfThereIsNoConnectionGettingTaskById() {
+        stubRequest("GET", "http://jsonplaceholder.typicode.com/todos/1")
+            .andFailWithError(NSError.networkError())
+
+        var result: Result<TaskDTO, TODOAPIClientError>?
+        apiClient.getTaskById("1") { response in
+            result = response
+        }
+
+        expect(result?.error).toEventually(equal(TODOAPIClientError.NetworkError))
+    }
+
+    func testReturnsUnknowErrorIfTheErrorIsNotHandledGettingTasksById() {
+        stubRequest("GET", "http://jsonplaceholder.typicode.com/todos/1")
+            .andReturn(418)
+
+        var result: Result<TaskDTO, TODOAPIClientError>?
+        apiClient.getTaskById("1") { response in
             result = response
         }
 
