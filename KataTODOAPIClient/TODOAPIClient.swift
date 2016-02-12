@@ -21,7 +21,7 @@ public class TODOAPIClient {
         self.parser = TaskDTOParser()
     }
 
-    public func getAll(completion: (Result<[TaskDTO], TODOAPIClientError>) -> ()) {
+    public func getAllTasks(completion: (Result<[TaskDTO], TODOAPIClientError>) -> ()) {
         botham.GET(TODOAPIClientConfig.tasksEndpoint) { result in
             result.mapJSON { json in
                 let tasks: [TaskDTO] = self.parser.fromJSON(json)
@@ -30,7 +30,7 @@ public class TODOAPIClient {
         }
     }
 
-    public func getByTaskId(id: String, completion: (Result<TaskDTO, TODOAPIClientError>) -> ()) {
+    public func getTaskById(id: String, completion: (Result<TaskDTO, TODOAPIClientError>) -> ()) {
         botham.GET("\(TODOAPIClientConfig.tasksEndpoint)/\(id)") { result in
             result.mapJSON { json in
                 let task: TaskDTO = self.parser.fromJSON(json)
@@ -56,8 +56,23 @@ public class TODOAPIClient {
         botham.DELETE("\(TODOAPIClientConfig.tasksEndpoint)/\(id)") { result in
             result.mapJSON { json in
                 completion(Result.Success())
-                }.mapErrorToTODOAPIClientError()
+            }.mapErrorToTODOAPIClientError()
         }
     }
+
+    public func updateTask(task: TaskDTO,
+        completion: (Result<TaskDTO, TODOAPIClientError>) -> ()) {
+            botham.PUT("\(TODOAPIClientConfig.tasksEndpoint)/\(task.id)",
+                body: ["id": task.id,
+                    "userId": task.userId,
+                    "title": task.title,
+                    "completed": task.completed]){ result in
+                        result.mapJSON { json in
+                            let task: TaskDTO = self.parser.fromJSON(json)
+                            completion(Result.Success(task))
+                        }.mapErrorToTODOAPIClientError()
+            }
+    }
+
 
 }
