@@ -9,15 +9,17 @@ XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 let apiClient = TODOAPIClient()
 
 apiClient.getAll { result in
-    if let tasks = result.value {
-        tasks.forEach {
-            print($0)
-        }
-    }
+    print(result)
 }
 
 apiClient.getByTaskId("1") { result in
-    if let task = result.value {
-        print(task)
-    }
+    print(result)
+}
+
+apiClient.addTaskToUser("1", title: "Finish this kata", completed: false) { result in
+    print(result)
+}
+
+apiClient.deleteTaskById("1") { result in
+    print(result)
 }

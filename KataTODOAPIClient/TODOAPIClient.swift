@@ -35,7 +35,20 @@ public class TODOAPIClient {
             result.mapJSON { json in
                 let task: TaskDTO = self.parser.fromJSON(json)
                 completion(Result.Success(task))
-                }.mapErrorToTODOAPIClientError()
+            }.mapErrorToTODOAPIClientError()
+        }
+    }
+
+    public func addTaskToUser(userId: String, title: String, completed: Bool,
+            completion: (Result<TaskDTO, TODOAPIClientError>) -> ()) {
+        botham.POST(TODOAPIClientConfig.tasksEndpoint,
+            body: ["userId": userId,
+                    "title": title,
+                    "completed": completed]){ result in
+            result.mapJSON { json in
+                let task: TaskDTO = self.parser.fromJSON(json)
+                completion(Result.Success(task))
+            }.mapErrorToTODOAPIClientError()
         }
     }
 
