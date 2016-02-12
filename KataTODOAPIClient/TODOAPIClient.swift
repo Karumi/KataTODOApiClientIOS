@@ -13,8 +13,11 @@ public class TODOAPIClient {
 
     private let botham: BothamAPIClient
 
-    init() {
+    public init() {
         self.botham = BothamAPIClient(baseEndpoint: TODOAPIClientConfig.baseEndpoint)
+        self.botham.requestInterceptors.append(DefaultHeadersInterceptor())
     }
+
+
 
 }

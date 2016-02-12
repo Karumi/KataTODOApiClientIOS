@@ -15,6 +15,7 @@
 		EB28C87C1C6DD72A004A5E74 /* TODOAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C87B1C6DD72A004A5E74 /* TODOAPIClient.swift */; };
 		EB28C87F1C6DD772004A5E74 /* TODOAPIClientConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C87E1C6DD772004A5E74 /* TODOAPIClientConfig.swift */; };
 		EB28C8811C6DD7CA004A5E74 /* TaskDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C8801C6DD7CA004A5E74 /* TaskDTO.swift */; };
+		EB28C8851C6DDA56004A5E74 /* DefaultHeadersRequestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C8841C6DDA56004A5E74 /* DefaultHeadersRequestInterceptor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		EB28C87B1C6DD72A004A5E74 /* TODOAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TODOAPIClient.swift; sourceTree = "<group>"; };
 		EB28C87E1C6DD772004A5E74 /* TODOAPIClientConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TODOAPIClientConfig.swift; sourceTree = "<group>"; };
 		EB28C8801C6DD7CA004A5E74 /* TaskDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskDTO.swift; sourceTree = "<group>"; };
+		EB28C8841C6DDA56004A5E74 /* DefaultHeadersRequestInterceptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultHeadersRequestInterceptor.swift; sourceTree = "<group>"; };
 		F06AD546F4EC015C4AEB6C1F /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1FE7148F6B960532B04162E /* Pods_KataTODOAPIClientTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KataTODOAPIClientTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F580F03C90793ABC52D3DBF6 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -109,9 +111,11 @@
 		EB28C8631C6DD32A004A5E74 /* KataTODOAPIClient */ = {
 			isa = PBXGroup;
 			children = (
-				EB28C87D1C6DD760004A5E74 /* DTOs */,
 				EB28C87B1C6DD72A004A5E74 /* TODOAPIClient.swift */,
 				EB28C87E1C6DD772004A5E74 /* TODOAPIClientConfig.swift */,
+				EB28C8831C6DDA3A004A5E74 /* Interceptors */,
+				EB28C87D1C6DD760004A5E74 /* DTOs */,
+				EB28C8821C6DD9FA004A5E74 /* Parser */,
 				EB28C8641C6DD32A004A5E74 /* KataTODOAPIClient.h */,
 				EB28C8661C6DD32A004A5E74 /* Info.plist */,
 			);
@@ -133,6 +137,21 @@
 				EB28C8801C6DD7CA004A5E74 /* TaskDTO.swift */,
 			);
 			name = DTOs;
+			sourceTree = "<group>";
+		};
+		EB28C8821C6DD9FA004A5E74 /* Parser */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Parser;
+			sourceTree = "<group>";
+		};
+		EB28C8831C6DDA3A004A5E74 /* Interceptors */ = {
+			isa = PBXGroup;
+			children = (
+				EB28C8841C6DDA56004A5E74 /* DefaultHeadersRequestInterceptor.swift */,
+			);
+			name = Interceptors;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -328,6 +347,7 @@
 			files = (
 				EB28C8811C6DD7CA004A5E74 /* TaskDTO.swift in Sources */,
 				EB28C87C1C6DD72A004A5E74 /* TODOAPIClient.swift in Sources */,
+				EB28C8851C6DDA56004A5E74 /* DefaultHeadersRequestInterceptor.swift in Sources */,
 				EB28C87F1C6DD772004A5E74 /* TODOAPIClientConfig.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
