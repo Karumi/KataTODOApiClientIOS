@@ -12,17 +12,17 @@ import Result
 
 public class TODOAPIClient {
 
-    private let botham: BothamAPIClient
-    private let parser: TaskDTOParser
+    private let apiClient: BothamAPIClient
+    private let parser: TaskDTOJSONParser
 
     public init() {
-        self.botham = BothamAPIClient(baseEndpoint: TODOAPIClientConfig.baseEndpoint)
-        self.botham.requestInterceptors.append(DefaultHeadersInterceptor())
-        self.parser = TaskDTOParser()
+        self.apiClient = BothamAPIClient(baseEndpoint: TODOAPIClientConfig.baseEndpoint)
+        self.apiClient.requestInterceptors.append(DefaultHeadersInterceptor())
+        self.parser = TaskDTOJSONParser()
     }
 
     public func getAllTasks(completion: (Result<[TaskDTO], TODOAPIClientError>) -> ()) {
-        botham.GET(TODOAPIClientConfig.tasksEndpoint) { result in
+        apiClient.GET(TODOAPIClientConfig.tasksEndpoint) { result in
             completion(result.mapJSON { json -> [TaskDTO] in
                 let tasks: [TaskDTO] = self.parser.fromJSON(json)
                 return tasks
@@ -31,7 +31,7 @@ public class TODOAPIClient {
     }
 
     public func getTaskById(id: String, completion: (Result<TaskDTO, TODOAPIClientError>) -> ()) {
-        botham.GET("\(TODOAPIClientConfig.tasksEndpoint)/\(id)") { result in
+        apiClient.GET("\(TODOAPIClientConfig.tasksEndpoint)/\(id)") { result in
             completion(result.mapJSON { json -> TaskDTO in
                 let task: TaskDTO = self.parser.fromJSON(json)
                 return task
@@ -41,7 +41,7 @@ public class TODOAPIClient {
 
     public func addTaskToUser(userId: String, title: String, completed: Bool,
             completion: (Result<TaskDTO, TODOAPIClientError>) -> ()) {
-        botham.POST(TODOAPIClientConfig.tasksEndpoint,
+        apiClient.POST(TODOAPIClientConfig.tasksEndpoint,
             body: ["userId": userId,
                     "title": title,
                     "completed": completed]) { result in
@@ -53,7 +53,7 @@ public class TODOAPIClient {
     }
 
     public func deleteTaskById(id: String, completion: (Result<Void, TODOAPIClientError>) -> ()) {
-        botham.DELETE("\(TODOAPIClientConfig.tasksEndpoint)/\(id)") { result in
+        apiClient.DELETE("\(TODOAPIClientConfig.tasksEndpoint)/\(id)") { result in
             completion(result.map { _ -> Void in
                 return
             }.mapErrorToTODOAPIClientError())
@@ -62,7 +62,7 @@ public class TODOAPIClient {
 
     public func updateTask(task: TaskDTO,
         completion: (Result<TaskDTO, TODOAPIClientError>) -> ()) {
-            botham.PUT("\(TODOAPIClientConfig.tasksEndpoint)/\(task.id)",
+            apiClient.PUT("\(TODOAPIClientConfig.tasksEndpoint)/\(task.id)",
                 body: ["id": task.id,
                     "userId": task.userId,
                     "title": task.title,

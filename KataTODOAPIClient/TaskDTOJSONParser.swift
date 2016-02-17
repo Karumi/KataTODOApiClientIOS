@@ -9,7 +9,7 @@
 import Foundation
 import SwiftyJSON
 
-class TaskDTOParser {
+class TaskDTOJSONParser {
 
     func fromJSON(json: JSON) -> [TaskDTO] {
         return json.arrayValue.map { fromJSON($0) }

@@ -16,7 +16,7 @@
 		EB28C8811C6DD7CA004A5E74 /* TaskDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C8801C6DD7CA004A5E74 /* TaskDTO.swift */; };
 		EB28C8851C6DDA56004A5E74 /* DefaultHeadersRequestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C8841C6DDA56004A5E74 /* DefaultHeadersRequestInterceptor.swift */; };
 		EB28C8881C6DDB1F004A5E74 /* TODOAPIClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C8871C6DDB1F004A5E74 /* TODOAPIClientError.swift */; };
-		EB28C88A1C6DDBF8004A5E74 /* TaskDTOParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C8891C6DDBF8004A5E74 /* TaskDTOParser.swift */; };
+		EB28C88A1C6DDBF8004A5E74 /* TaskDTOJSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C8891C6DDBF8004A5E74 /* TaskDTOJSONParser.swift */; };
 		EB28C88D1C6DF109004A5E74 /* NocillaTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C88C1C6DF109004A5E74 /* NocillaTestCase.swift */; };
 		EB28C88F1C6DF13D004A5E74 /* TODOAPIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C88E1C6DF13D004A5E74 /* TODOAPIClientTests.swift */; };
 		EB28C8921C6DFC23004A5E74 /* getTasksResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EB28C8911C6DFC23004A5E74 /* getTasksResponse.json */; };
@@ -53,7 +53,7 @@
 		EB28C8801C6DD7CA004A5E74 /* TaskDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskDTO.swift; sourceTree = "<group>"; };
 		EB28C8841C6DDA56004A5E74 /* DefaultHeadersRequestInterceptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultHeadersRequestInterceptor.swift; sourceTree = "<group>"; };
 		EB28C8871C6DDB1F004A5E74 /* TODOAPIClientError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TODOAPIClientError.swift; sourceTree = "<group>"; };
-		EB28C8891C6DDBF8004A5E74 /* TaskDTOParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskDTOParser.swift; sourceTree = "<group>"; };
+		EB28C8891C6DDBF8004A5E74 /* TaskDTOJSONParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskDTOJSONParser.swift; sourceTree = "<group>"; };
 		EB28C88B1C6DDE7B004A5E74 /* TODOAPIClientPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = TODOAPIClientPlayground.playground; sourceTree = "<group>"; };
 		EB28C88C1C6DF109004A5E74 /* NocillaTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NocillaTestCase.swift; sourceTree = "<group>"; };
 		EB28C88E1C6DF13D004A5E74 /* TODOAPIClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TODOAPIClientTests.swift; sourceTree = "<group>"; };
@@ -170,7 +170,7 @@
 		EB28C8821C6DD9FA004A5E74 /* Parser */ = {
 			isa = PBXGroup;
 			children = (
-				EB28C8891C6DDBF8004A5E74 /* TaskDTOParser.swift */,
+				EB28C8891C6DDBF8004A5E74 /* TaskDTOJSONParser.swift */,
 			);
 			name = Parser;
 			sourceTree = "<group>";
@@ -411,7 +411,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB28C8811C6DD7CA004A5E74 /* TaskDTO.swift in Sources */,
-				EB28C88A1C6DDBF8004A5E74 /* TaskDTOParser.swift in Sources */,
+				EB28C88A1C6DDBF8004A5E74 /* TaskDTOJSONParser.swift in Sources */,
 				EB28C87C1C6DD72A004A5E74 /* TODOAPIClient.swift in Sources */,
 				EB28C8881C6DDB1F004A5E74 /* TODOAPIClientError.swift in Sources */,
 				EB28C8851C6DDA56004A5E74 /* DefaultHeadersRequestInterceptor.swift in Sources */,
