@@ -1,7 +1,7 @@
 ![Karumi logo][karumilogo] KataTODOApiClient for iOS. [![Build Status](https://travis-ci.org/Karumi/KataTODOApiClientIOS.svg?branch=master)](https://travis-ci.org/Karumi/KataTODOApiClientIOS)
 ============================
 
-- We are here to practice integration testsing using HTTP stubbing. 
+- We are here to practice integration testing using HTTP stubbing.
 - We are going to use [Nocilla][nocilla] to simulate a HTTP server.
 - We are going to use [Nimble][nimble] to perform assertions.
 - We are going to practice pair programming.
