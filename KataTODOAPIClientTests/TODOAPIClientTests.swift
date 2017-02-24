@@ -121,7 +121,7 @@ class TODOAPIClientTests: NocillaTestCase {
 
     func testSendsTheCorrectBodyAddingANewTask() {
         stubRequest("POST", "http://jsonplaceholder.typicode.com/todos")
-            //.withBody(fromJsonFile("addTaskToUserRequest"))?
+            .withBody(fromJsonFile("addTaskToUserRequest"))?
             .andReturn(201)
 
         var result: Result<TaskDTO, TODOAPIClientError>?
