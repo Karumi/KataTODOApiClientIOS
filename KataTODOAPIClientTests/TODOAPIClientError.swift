@@ -13,11 +13,11 @@ extension TODOAPIClientError: Equatable {}
 
 public func == (lhs: TODOAPIClientError, rhs: TODOAPIClientError) -> Bool {
     switch (lhs, rhs) {
-    case (.NetworkError, .NetworkError):
+    case (.networkError, .networkError):
         return true
-    case (.ItemNotFound, .ItemNotFound):
+    case (.itemNotFound, .itemNotFound):
         return true
-    case let (.UnknownError(code1), .UnknownError(code2)):
+    case let (.unknownError(code1), .unknownError(code2)):
         return code1 == code2
     default:
         return false

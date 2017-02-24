@@ -11,11 +11,11 @@ import SwiftyJSON
 
 class TaskDTOJSONParser {
 
-    func fromJSON(json: JSON) -> [TaskDTO] {
+    func fromJSON(_ json: JSON) -> [TaskDTO] {
         return json.arrayValue.map { fromJSON($0) }
     }
 
-    func fromJSON(json: JSON) -> TaskDTO {
+    func fromJSON(_ json: JSON) -> TaskDTO {
         return TaskDTO(userId: json["userId"].stringValue,
             id: json["id"].stringValue,
             title: json["title"].stringValue,
