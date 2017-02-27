@@ -5,6 +5,7 @@ before_install:
   - brew update
   - gem install xcpretty
   - gem install cocoapods
+  - pod repo update --silent
 
 install:
   - pod install
