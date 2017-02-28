@@ -7,31 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3E51D4E102AF0FE13FFEA669 /* Pods_KataTODOAPIClient_KataTODOAPIClientTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E7BE8B071FFE07D669635D6 /* Pods_KataTODOAPIClient_KataTODOAPIClientTests.framework */; };
-		596DA126563421BC98FA6A52 /* Pods_KataTODOAPIClientTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D74BAB9FE6332141F4937F17 /* Pods_KataTODOAPIClientTests.framework */; };
+		A728FA85059C08A58464AD4B /* Pods_KataTODOAPIClientTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D74BAB9FE6332141F4937F17 /* Pods_KataTODOAPIClientTests.framework */; };
 		DB8AEF1C8A6F3564D6AC77D4 /* Pods_KataTODOAPIClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F618648049BD9D1C4BA6CBB /* Pods_KataTODOAPIClient.framework */; };
 		EB28C8651C6DD32A004A5E74 /* KataTODOAPIClient.h in Headers */ = {isa = PBXBuildFile; fileRef = EB28C8641C6DD32A004A5E74 /* KataTODOAPIClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EB28C86C1C6DD32A004A5E74 /* KataTODOAPIClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB28C8611C6DD32A004A5E74 /* KataTODOAPIClient.framework */; };
 		EB28C87C1C6DD72A004A5E74 /* TODOAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C87B1C6DD72A004A5E74 /* TODOAPIClient.swift */; };
 		EB28C87F1C6DD772004A5E74 /* TODOAPIClientConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C87E1C6DD772004A5E74 /* TODOAPIClientConfig.swift */; };
 		EB28C8811C6DD7CA004A5E74 /* TaskDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C8801C6DD7CA004A5E74 /* TaskDTO.swift */; };
 		EB28C8851C6DDA56004A5E74 /* DefaultHeadersRequestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C8841C6DDA56004A5E74 /* DefaultHeadersRequestInterceptor.swift */; };
 		EB28C8881C6DDB1F004A5E74 /* TODOAPIClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C8871C6DDB1F004A5E74 /* TODOAPIClientError.swift */; };
 		EB28C88A1C6DDBF8004A5E74 /* TaskDTOJSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C8891C6DDBF8004A5E74 /* TaskDTOJSONParser.swift */; };
-		EB28C88D1C6DF109004A5E74 /* NocillaTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C88C1C6DF109004A5E74 /* NocillaTestCase.swift */; };
-		EB28C88F1C6DF13D004A5E74 /* TODOAPIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C88E1C6DF13D004A5E74 /* TODOAPIClientTests.swift */; };
-		EB28C8921C6DFC23004A5E74 /* getTasksResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EB28C8911C6DFC23004A5E74 /* getTasksResponse.json */; };
-		EB28C8951C6DFDE7004A5E74 /* NSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C8941C6DFDE7004A5E74 /* NSError.swift */; };
-		EB28C8971C6DFE37004A5E74 /* TODOAPIClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C8961C6DFE37004A5E74 /* TODOAPIClientError.swift */; };
-		EB28C8991C6E00D5004A5E74 /* getTaskByIdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EB28C8981C6E00D5004A5E74 /* getTaskByIdResponse.json */; };
-		EB28C89B1C6E0327004A5E74 /* addTaskToUserRequest.json in Resources */ = {isa = PBXBuildFile; fileRef = EB28C89A1C6E0327004A5E74 /* addTaskToUserRequest.json */; };
-		EB28C89D1C6E0364004A5E74 /* addTaskToUserResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EB28C89C1C6E0364004A5E74 /* addTaskToUserResponse.json */; };
-		EB28C89F1C6E1E26004A5E74 /* updateTaskRequest.json in Resources */ = {isa = PBXBuildFile; fileRef = EB28C89E1C6E1E26004A5E74 /* updateTaskRequest.json */; };
-		EB28C8A11C6E1EFC004A5E74 /* updateTaskResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EB28C8A01C6E1EFC004A5E74 /* updateTaskResponse.json */; };
+		EB2B5E8F1E657C8A00B62211 /* KataTODOAPIClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB28C8611C6DD32A004A5E74 /* KataTODOAPIClient.framework */; };
+		EB2B5E951E657D3D00B62211 /* NocillaTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C88C1C6DF109004A5E74 /* NocillaTestCase.swift */; };
+		EB2B5E961E657D4100B62211 /* TODOAPIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C88E1C6DF13D004A5E74 /* TODOAPIClientTests.swift */; };
+		EB2B5E971E657D4600B62211 /* NSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C8941C6DFDE7004A5E74 /* NSError.swift */; };
+		EB2B5E981E657D4900B62211 /* TODOAPIClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C8961C6DFE37004A5E74 /* TODOAPIClientError.swift */; };
+		EB2B5E991E657D4D00B62211 /* getTasksResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EB28C8911C6DFC23004A5E74 /* getTasksResponse.json */; };
+		EB2B5E9A1E657D5100B62211 /* getTaskByIdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EB28C8981C6E00D5004A5E74 /* getTaskByIdResponse.json */; };
+		EB2B5E9B1E657D5400B62211 /* addTaskToUserRequest.json in Resources */ = {isa = PBXBuildFile; fileRef = EB28C89A1C6E0327004A5E74 /* addTaskToUserRequest.json */; };
+		EB2B5E9C1E657D5700B62211 /* addTaskToUserResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EB28C89C1C6E0364004A5E74 /* addTaskToUserResponse.json */; };
+		EB2B5E9D1E657D5A00B62211 /* updateTaskRequest.json in Resources */ = {isa = PBXBuildFile; fileRef = EB28C89E1C6E1E26004A5E74 /* updateTaskRequest.json */; };
+		EB2B5E9E1E657D5E00B62211 /* updateTaskResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EB28C8A01C6E1EFC004A5E74 /* updateTaskResponse.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		EB28C86D1C6DD32A004A5E74 /* PBXContainerItemProxy */ = {
+		EB2B5E901E657C8A00B62211 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EB28C8581C6DD32A004A5E74 /* Project object */;
 			proxyType = 1;
@@ -53,8 +52,6 @@
 		EB28C8611C6DD32A004A5E74 /* KataTODOAPIClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KataTODOAPIClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB28C8641C6DD32A004A5E74 /* KataTODOAPIClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KataTODOAPIClient.h; sourceTree = "<group>"; };
 		EB28C8661C6DD32A004A5E74 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EB28C86B1C6DD32A004A5E74 /* KataTODOAPIClientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KataTODOAPIClientTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		EB28C8721C6DD32A004A5E74 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EB28C87B1C6DD72A004A5E74 /* TODOAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TODOAPIClient.swift; sourceTree = "<group>"; };
 		EB28C87E1C6DD772004A5E74 /* TODOAPIClientConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TODOAPIClientConfig.swift; sourceTree = "<group>"; };
 		EB28C8801C6DD7CA004A5E74 /* TaskDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskDTO.swift; sourceTree = "<group>"; };
@@ -72,6 +69,8 @@
 		EB28C89C1C6E0364004A5E74 /* addTaskToUserResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = addTaskToUserResponse.json; sourceTree = "<group>"; };
 		EB28C89E1C6E1E26004A5E74 /* updateTaskRequest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = updateTaskRequest.json; sourceTree = "<group>"; };
 		EB28C8A01C6E1EFC004A5E74 /* updateTaskResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = updateTaskResponse.json; sourceTree = "<group>"; };
+		EB2B5E8A1E657C8900B62211 /* KataTODOAPIClientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KataTODOAPIClientTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB2B5E8E1E657C8A00B62211 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F06AD546F4EC015C4AEB6C1F /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -84,13 +83,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EB28C8681C6DD32A004A5E74 /* Frameworks */ = {
+		EB2B5E871E657C8900B62211 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB28C86C1C6DD32A004A5E74 /* KataTODOAPIClient.framework in Frameworks */,
-				596DA126563421BC98FA6A52 /* Pods_KataTODOAPIClientTests.framework in Frameworks */,
-				3E51D4E102AF0FE13FFEA669 /* Pods_KataTODOAPIClient_KataTODOAPIClientTests.framework in Frameworks */,
+				EB2B5E8F1E657C8A00B62211 /* KataTODOAPIClient.framework in Frameworks */,
+				A728FA85059C08A58464AD4B /* Pods_KataTODOAPIClientTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,7 +124,7 @@
 			children = (
 				EB28C88B1C6DDE7B004A5E74 /* TODOAPIClientPlayground.playground */,
 				EB28C8631C6DD32A004A5E74 /* KataTODOAPIClient */,
-				EB28C86F1C6DD32A004A5E74 /* KataTODOAPIClientTests */,
+				EB2B5E8B1E657C8A00B62211 /* KataTODOAPIClientTests */,
 				EB28C8621C6DD32A004A5E74 /* Products */,
 				278C75894C520E46833A1E8E /* Frameworks */,
 				76AC067C48F0E5B4B2C84BE0 /* Pods */,
@@ -137,7 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				EB28C8611C6DD32A004A5E74 /* KataTODOAPIClient.framework */,
-				EB28C86B1C6DD32A004A5E74 /* KataTODOAPIClientTests.xctest */,
+				EB2B5E8A1E657C8900B62211 /* KataTODOAPIClientTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -155,18 +153,6 @@
 				EB28C8661C6DD32A004A5E74 /* Info.plist */,
 			);
 			path = KataTODOAPIClient;
-			sourceTree = "<group>";
-		};
-		EB28C86F1C6DD32A004A5E74 /* KataTODOAPIClientTests */ = {
-			isa = PBXGroup;
-			children = (
-				EB28C88C1C6DF109004A5E74 /* NocillaTestCase.swift */,
-				EB28C88E1C6DF13D004A5E74 /* TODOAPIClientTests.swift */,
-				EB28C8721C6DD32A004A5E74 /* Info.plist */,
-				EB28C8931C6DFDD8004A5E74 /* Extensions */,
-				EB28C8901C6DFC08004A5E74 /* JSON */,
-			);
-			path = KataTODOAPIClientTests;
 			sourceTree = "<group>";
 		};
 		EB28C87D1C6DD760004A5E74 /* DTOs */ = {
@@ -223,6 +209,18 @@
 			name = Extensions;
 			sourceTree = "<group>";
 		};
+		EB2B5E8B1E657C8A00B62211 /* KataTODOAPIClientTests */ = {
+			isa = PBXGroup;
+			children = (
+				EB28C88C1C6DF109004A5E74 /* NocillaTestCase.swift */,
+				EB28C88E1C6DF13D004A5E74 /* TODOAPIClientTests.swift */,
+				EB28C8931C6DFDD8004A5E74 /* Extensions */,
+				EB28C8901C6DFC08004A5E74 /* JSON */,
+				EB2B5E8E1E657C8A00B62211 /* Info.plist */,
+			);
+			path = KataTODOAPIClientTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -257,25 +255,25 @@
 			productReference = EB28C8611C6DD32A004A5E74 /* KataTODOAPIClient.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		EB28C86A1C6DD32A004A5E74 /* KataTODOAPIClientTests */ = {
+		EB2B5E891E657C8900B62211 /* KataTODOAPIClientTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EB28C8781C6DD32A004A5E74 /* Build configuration list for PBXNativeTarget "KataTODOAPIClientTests" */;
+			buildConfigurationList = EB2B5E921E657C8A00B62211 /* Build configuration list for PBXNativeTarget "KataTODOAPIClientTests" */;
 			buildPhases = (
-				8BA9DA1D6536148BBB1D846F /* [CP] Check Pods Manifest.lock */,
-				EB28C8671C6DD32A004A5E74 /* Sources */,
-				EB28C8681C6DD32A004A5E74 /* Frameworks */,
-				EB28C8691C6DD32A004A5E74 /* Resources */,
-				75934AF21AD2140624E8FC53 /* [CP] Embed Pods Frameworks */,
-				4FA3D0CA496D16CDB3C2CD76 /* [CP] Copy Pods Resources */,
+				BF901B71694A9ED80E6D420C /* [CP] Check Pods Manifest.lock */,
+				EB2B5E861E657C8900B62211 /* Sources */,
+				EB2B5E871E657C8900B62211 /* Frameworks */,
+				EB2B5E881E657C8900B62211 /* Resources */,
+				FA2D675EE0ABA984AD5C2BBE /* [CP] Embed Pods Frameworks */,
+				44089DD0F010073146476A46 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				EB28C86E1C6DD32A004A5E74 /* PBXTargetDependency */,
+				EB2B5E911E657C8A00B62211 /* PBXTargetDependency */,
 			);
 			name = KataTODOAPIClientTests;
 			productName = KataTODOAPIClientTests;
-			productReference = EB28C86B1C6DD32A004A5E74 /* KataTODOAPIClientTests.xctest */;
+			productReference = EB2B5E8A1E657C8900B62211 /* KataTODOAPIClientTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -284,7 +282,7 @@
 		EB28C8581C6DD32A004A5E74 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0720;
+				LastSwiftUpdateCheck = 0820;
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = Karumi;
 				TargetAttributes = {
@@ -292,9 +290,9 @@
 						CreatedOnToolsVersion = 7.2;
 						LastSwiftMigration = 0820;
 					};
-					EB28C86A1C6DD32A004A5E74 = {
-						CreatedOnToolsVersion = 7.2;
-						LastSwiftMigration = 0820;
+					EB2B5E891E657C8900B62211 = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -311,7 +309,7 @@
 			projectRoot = "";
 			targets = (
 				EB28C8601C6DD32A004A5E74 /* KataTODOAPIClient */,
-				EB28C86A1C6DD32A004A5E74 /* KataTODOAPIClientTests */,
+				EB2B5E891E657C8900B62211 /* KataTODOAPIClientTests */,
 			);
 		};
 /* End PBXProject section */
@@ -324,16 +322,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EB28C8691C6DD32A004A5E74 /* Resources */ = {
+		EB2B5E881E657C8900B62211 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB28C8A11C6E1EFC004A5E74 /* updateTaskResponse.json in Resources */,
-				EB28C89B1C6E0327004A5E74 /* addTaskToUserRequest.json in Resources */,
-				EB28C8991C6E00D5004A5E74 /* getTaskByIdResponse.json in Resources */,
-				EB28C89D1C6E0364004A5E74 /* addTaskToUserResponse.json in Resources */,
-				EB28C89F1C6E1E26004A5E74 /* updateTaskRequest.json in Resources */,
-				EB28C8921C6DFC23004A5E74 /* getTasksResponse.json in Resources */,
+				EB2B5E9E1E657D5E00B62211 /* updateTaskResponse.json in Resources */,
+				EB2B5E9B1E657D5400B62211 /* addTaskToUserRequest.json in Resources */,
+				EB2B5E9A1E657D5100B62211 /* getTaskByIdResponse.json in Resources */,
+				EB2B5E9D1E657D5A00B62211 /* updateTaskRequest.json in Resources */,
+				EB2B5E991E657D4D00B62211 /* getTasksResponse.json in Resources */,
+				EB2B5E9C1E657D5700B62211 /* addTaskToUserResponse.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,7 +368,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KataTODOAPIClient/Pods-KataTODOAPIClient-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		4FA3D0CA496D16CDB3C2CD76 /* [CP] Copy Pods Resources */ = {
+		44089DD0F010073146476A46 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -385,22 +383,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KataTODOAPIClientTests/Pods-KataTODOAPIClientTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		75934AF21AD2140624E8FC53 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KataTODOAPIClientTests/Pods-KataTODOAPIClientTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8BA9DA1D6536148BBB1D846F /* [CP] Check Pods Manifest.lock */ = {
+		BF901B71694A9ED80E6D420C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -413,6 +396,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		FA2D675EE0ABA984AD5C2BBE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KataTODOAPIClientTests/Pods-KataTODOAPIClientTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -431,24 +429,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EB28C8671C6DD32A004A5E74 /* Sources */ = {
+		EB2B5E861E657C8900B62211 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB28C8971C6DFE37004A5E74 /* TODOAPIClientError.swift in Sources */,
-				EB28C88D1C6DF109004A5E74 /* NocillaTestCase.swift in Sources */,
-				EB28C88F1C6DF13D004A5E74 /* TODOAPIClientTests.swift in Sources */,
-				EB28C8951C6DFDE7004A5E74 /* NSError.swift in Sources */,
+				EB2B5E981E657D4900B62211 /* TODOAPIClientError.swift in Sources */,
+				EB2B5E951E657D3D00B62211 /* NocillaTestCase.swift in Sources */,
+				EB2B5E961E657D4100B62211 /* TODOAPIClientTests.swift in Sources */,
+				EB2B5E971E657D4600B62211 /* NSError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		EB28C86E1C6DD32A004A5E74 /* PBXTargetDependency */ = {
+		EB2B5E911E657C8A00B62211 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = EB28C8601C6DD32A004A5E74 /* KataTODOAPIClient */;
-			targetProxy = EB28C86D1C6DD32A004A5E74 /* PBXContainerItemProxy */;
+			targetProxy = EB2B5E901E657C8A00B62211 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -585,26 +583,38 @@
 			};
 			name = Release;
 		};
-		EB28C8791C6DD32A004A5E74 /* Debug */ = {
+		EB2B5E931E657C8A00B62211 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0848BC66DFE0F68A5F29B5ED /* Pods-KataTODOAPIClientTests.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				INFOPLIST_FILE = KataTODOAPIClientTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.karumi.KataTODOAPIClientTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
-		EB28C87A1C6DD32A004A5E74 /* Release */ = {
+		EB2B5E941E657C8A00B62211 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8C76A5B3D80902019BAD4A8A /* Pods-KataTODOAPIClientTests.release.xcconfig */;
 			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				INFOPLIST_FILE = KataTODOAPIClientTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.karumi.KataTODOAPIClientTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -630,11 +640,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		EB28C8781C6DD32A004A5E74 /* Build configuration list for PBXNativeTarget "KataTODOAPIClientTests" */ = {
+		EB2B5E921E657C8A00B62211 /* Build configuration list for PBXNativeTarget "KataTODOAPIClientTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				EB28C8791C6DD32A004A5E74 /* Debug */,
-				EB28C87A1C6DD32A004A5E74 /* Release */,
+				EB2B5E931E657C8A00B62211 /* Debug */,
+				EB2B5E941E657C8A00B62211 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
