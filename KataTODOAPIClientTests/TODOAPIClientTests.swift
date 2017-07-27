@@ -42,7 +42,7 @@ class TODOAPIClientTests: NocillaTestCase {
         }
 
         expect(result?.value?.count).toEventually(equal(200))
-        assertTaskContainsExpectedValues((result?.value?[0])!)
+        assertTaskContainsExpectedValues(task: (result?.value?[0])!)
     }
 
     func testReturnsNetworkErrorIfThereIsNoConnectionGettingAllTasks() {
