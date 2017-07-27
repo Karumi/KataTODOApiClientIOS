@@ -15,12 +15,12 @@ import Result
 
 class TODOAPIClientTests: NocillaTestCase {
 
-    private let apiClient = TODOAPIClient()
-    private let anyTask = TaskDTO(userId: "1", id: "2", title: "Finish this kata", completed: true)
+    fileprivate let apiClient = TODOAPIClient()
+    fileprivate let anyTask = TaskDTO(userId: "1", id: "2", title: "Finish this kata", completed: true)
 
     func testSendsContentTypeHeader() {
         stubRequest("GET", "http://jsonplaceholder.typicode.com/todos")
-            .withHeaders(["Content-Type": "application/json", "Accept": "application/json"])
+            .withHeaders(["Content-Type": "application/json", "Accept": "application/json"])?
             .andReturn(200)
 
         var result: Result<[TaskDTO], TODOAPIClientError>?
@@ -33,8 +33,8 @@ class TODOAPIClientTests: NocillaTestCase {
 
     func testParsesTasksProperlyGettingAllTheTasks() {
         stubRequest("GET", "http://jsonplaceholder.typicode.com/todos")
-            .andReturn(200)
-            .withBody(fromJSONFile("getTasksResponse"))
+            .andReturn(200)?
+            .withBody(fromJsonFile("getTasksResponse"))
 
         var result: Result<[TaskDTO], TODOAPIClientError>?
         apiClient.getAllTasks { response in
@@ -54,7 +54,7 @@ class TODOAPIClientTests: NocillaTestCase {
             result = response
         }
 
-        expect(result?.error).toEventually(equal(TODOAPIClientError.NetworkError))
+        expect(result?.error).toEventually(equal(TODOAPIClientError.networkError))
     }
 
     private func assertTaskContainsExpectedValues(task: TaskDTO) {
@@ -63,5 +63,4 @@ class TODOAPIClientTests: NocillaTestCase {
         expect(task.title).to(equal("delectus aut autem"))
         expect(task.completed).to(beFalse())
     }
-
 }

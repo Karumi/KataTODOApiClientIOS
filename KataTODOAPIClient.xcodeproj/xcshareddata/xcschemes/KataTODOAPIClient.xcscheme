@@ -26,13 +26,14 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      codeCoverageEnabled = "YES">
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EB28C86A1C6DD32A004A5E74"
+               BlueprintIdentifier = "EB2B5E891E657C8900B62211"
                BuildableName = "KataTODOAPIClientTests.xctest"
                BlueprintName = "KataTODOAPIClientTests"
                ReferencedContainer = "container:KataTODOAPIClient.xcodeproj">

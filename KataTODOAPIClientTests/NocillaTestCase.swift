@@ -10,31 +10,39 @@ import Foundation
 import XCTest
 import Nocilla
 
-public class NocillaTestCase: XCTestCase {
+open class NocillaTestCase: XCTestCase {
 
-    public let nocilla: LSNocilla = LSNocilla.sharedInstance()
+    let nocilla: LSNocilla = LSNocilla.sharedInstance()
 
-    public override func setUp() {
+    override open func setUp() {
         super.setUp()
         nocilla.start()
     }
 
-    public override func tearDown() {
+    override open func tearDown() {
         nocilla.clearStubs()
         nocilla.stop()
         super.tearDown()
     }
 
-    public func fromJSONFile(fileName: String) -> String {
-        let classBundle = NSBundle(forClass: self.classForCoder)
-        let path = classBundle.pathForResource(fileName, ofType: "json")
-        let absolutePath =  path ?? ""
-        do {
-            return try String(contentsOfFile: absolutePath, encoding: NSUTF8StringEncoding)
-        } catch _ {
-            print("Error trying to read file \(absolutePath). The file does not exist")
-            return ""
-        }
+    @discardableResult func stubRequest(_ method: String, _ url: String) -> LSStubRequestDSL {
+        return Nocilla.stubRequest(method, (url as NSString) as LSMatcheable)
     }
 
+    func fromJsonFile(_ fileName: String) -> NSString {
+        let classBundle = Bundle(for: self.classForCoder)
+        let path = classBundle.path(forResource: fileName, ofType: "json")
+        let absolutePath =  path ?? ""
+        do {
+            let content = try String(contentsOfFile: absolutePath, encoding: String.Encoding.utf8)
+            if content.characters.last == "\n"{
+                return NSString(string: content.substring(to: content.index(before: content.endIndex)))
+            } else {
+                return NSString(string: content)
+            }
+        } catch _ {
+            print("Error trying to read file \(absolutePath). The file does not exist")
+            return NSString(string: "")
+        }
+    }
 }

@@ -10,25 +10,25 @@ import Foundation
 import Result
 import BothamNetworking
 
-public enum TODOAPIClientError: ErrorType {
+public enum TODOAPIClientError: Error {
 
-    case NetworkError
-    case ItemNotFound
-    case UnknownError(code: Int)
+    case networkError
+    case itemNotFound
+    case unknownError(code: Int)
 
 }
 
-extension ResultType where Error == BothamAPIClientError {
+extension ResultProtocol where Error == BothamAPIClientError {
 
     func mapErrorToTODOAPIClientError() -> Result<Value, TODOAPIClientError> {
         return mapError { error in
             switch error {
-            case BothamAPIClientError.HTTPResponseError(404, _):
-                return TODOAPIClientError.ItemNotFound
-            case BothamAPIClientError.HTTPResponseError(let statusCode, _):
-                return TODOAPIClientError.UnknownError(code: statusCode)
+            case BothamAPIClientError.httpResponseError(404, _):
+                return TODOAPIClientError.itemNotFound
+            case BothamAPIClientError.httpResponseError(let statusCode, _):
+                return TODOAPIClientError.unknownError(code: statusCode)
             default:
-                return TODOAPIClientError.NetworkError
+                return TODOAPIClientError.networkError
             }
         }
     }

@@ -11,7 +11,7 @@ import BothamNetworking
 
 class DefaultHeadersInterceptor: BothamRequestInterceptor {
 
-    func intercept(request: HTTPRequest) -> HTTPRequest {
+    func intercept(_ request: HTTPRequest) -> HTTPRequest {
         return request.appendingHeaders(["Content-Type": "application/json",
             "Accept": "application/json"])
     }
