@@ -34,7 +34,7 @@ class TODOAPIClientTests: NocillaTestCase {
     func testParsesTasksProperlyGettingAllTheTasks() {
         stubRequest("GET", "http://jsonplaceholder.typicode.com/todos")
             .andReturn(200)?
-            .withBody(fromJsonFile("getTasksResponse"))
+            .withJsonBody(fromJsonFile("getTasksResponse"))
 
         var result: Result<[TaskDTO], TODOAPIClientError>?
         apiClient.getAllTasks { response in
