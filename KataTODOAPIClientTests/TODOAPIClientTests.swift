@@ -34,7 +34,7 @@ class TODOAPIClientTests: NocillaTestCase {
     func testParsesTasksProperlyGettingAllTheTasks() {
         stubRequest("GET", "http://jsonplaceholder.typicode.com/todos")
             .andReturn(200)?
-            .withBody(fromJsonFile("getTasksResponse"))
+            .withJsonBody(fromJsonFile("getTasksResponse"))
 
         var result: Result<[TaskDTO], TODOAPIClientError>?
         apiClient.getAllTasks { response in
@@ -72,7 +72,7 @@ class TODOAPIClientTests: NocillaTestCase {
     func testParsesTaskProperlyGettingTaskById() {
         stubRequest("GET", "http://jsonplaceholder.typicode.com/todos/1")
             .andReturn(200)?
-            .withBody(fromJsonFile("getTaskByIdResponse"))
+            .withJsonBody(fromJsonFile("getTaskByIdResponse"))
 
         var result: Result<TaskDTO, TODOAPIClientError>?
         apiClient.getTaskById("1") { response in
@@ -121,7 +121,7 @@ class TODOAPIClientTests: NocillaTestCase {
 
     func testSendsTheCorrectBodyAddingANewTask() {
         stubRequest("POST", "http://jsonplaceholder.typicode.com/todos")
-            .withBody(fromJsonFile("addTaskToUserRequest"))?
+            .withJsonBody(fromJsonFile("addTaskToUserRequest"))?
             .andReturn(201)
 
         var result: Result<TaskDTO, TODOAPIClientError>?
@@ -135,7 +135,7 @@ class TODOAPIClientTests: NocillaTestCase {
     func testParsesTheTaskCreatedProperlyAddingANewTask() {
         stubRequest("POST", "http://jsonplaceholder.typicode.com/todos")
             .andReturn(201)?
-            .withBody(fromJsonFile("addTaskToUserResponse"))
+            .withJsonBody(fromJsonFile("addTaskToUserResponse"))
 
         var result: Result<TaskDTO, TODOAPIClientError>?
         apiClient.addTaskToUser("1", title: "delectus aut autem", completed: false) { response in
@@ -221,7 +221,7 @@ class TODOAPIClientTests: NocillaTestCase {
 
     func testSendsTheExpectedBodyUpdatingATask() {
         stubRequest("PUT", "http://jsonplaceholder.typicode.com/todos/2")
-            .withBody(fromJsonFile("updateTaskRequest"))?
+            .withJsonBody(fromJsonFile("updateTaskRequest"))?
             .andReturn(200)
 
         var result: Result<TaskDTO, TODOAPIClientError>?
@@ -235,7 +235,7 @@ class TODOAPIClientTests: NocillaTestCase {
     func testParsesTheTaskProperlyUpdatingATask() {
         stubRequest("PUT", "http://jsonplaceholder.typicode.com/todos/\(anyTask.id)")
             .andReturn(200)?
-            .withBody(fromJsonFile("updateTaskResponse"))
+            .withJsonBody(fromJsonFile("updateTaskResponse"))
 
         var result: Result<TaskDTO, TODOAPIClientError>?
         apiClient.updateTask(anyTask) { response in

@@ -4,21 +4,21 @@ PODS:
     - SwiftyJSON
   - Nimble (6.0.1)
   - Nocilla (0.11.0)
-  - Result (3.1.0)
+  - Result (3.2.3)
   - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
-  - BothamNetworking
-  - Nimble
-  - Nocilla
+  - BothamNetworking (~> 2.0.0)
+  - Nimble (~> 6.0.1)
+  - Nocilla (~> 0.11.0)
 
 SPEC CHECKSUMS:
   BothamNetworking: ca91ad12113d8fae57aecec3a785008a81fcb22e
   Nimble: 1527fd1bd2b4cf0636251a36bc8ab37e81da8347
   Nocilla: 7af7a386071150cc8aa5da4da97d060f049dd61c
-  Result: 4e3ed5995ed94d0cd6a09be9a431fce3f3624bbf
+  Result: 128640a6347e8d2ae48b142556739a2d13f90ce6
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 0850ca4d12cf720c151f7645a865808e41d7fbba
+PODFILE CHECKSUM: 0c21a8cf7b058815587394140508c07e2641a89a
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.1
