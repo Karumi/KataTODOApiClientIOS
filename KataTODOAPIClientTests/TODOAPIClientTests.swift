@@ -122,7 +122,7 @@ class TODOAPIClientTests: NocillaTestCase {
     func testSendsTheCorrectBodyAddingANewTask() {
         stubRequest("POST", "http://jsonplaceholder.typicode.com/todos")
             .withJsonBody(fromJsonFile("addTaskToUserRequest"))?
-            .andReturn(201)
+            .andReturn(201)?.withJsonBody(fromJsonFile("addTaskToUserResponse"))
 
         var result: Result<TaskDTO, TODOAPIClientError>?
         apiClient.addTaskToUser("1", title: "Finish this kata", completed: false) { response in
@@ -130,6 +130,7 @@ class TODOAPIClientTests: NocillaTestCase {
         }
 
         expect(result).toEventuallyNot(beNil())
+        expect(result?.error).toEventually(beNil())
     }
 
     func testParsesTheTaskCreatedProperlyAddingANewTask() {
@@ -222,7 +223,8 @@ class TODOAPIClientTests: NocillaTestCase {
     func testSendsTheExpectedBodyUpdatingATask() {
         stubRequest("PUT", "http://jsonplaceholder.typicode.com/todos/2")
             .withJsonBody(fromJsonFile("updateTaskRequest"))?
-            .andReturn(200)
+            .andReturn(200)?
+            .withJsonBody(fromJsonFile("updateTaskResponse"))
 
         var result: Result<TaskDTO, TODOAPIClientError>?
         apiClient.updateTask(anyTask) { response in
