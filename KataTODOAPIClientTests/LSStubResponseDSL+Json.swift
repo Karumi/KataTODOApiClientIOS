@@ -12,7 +12,7 @@ import SwiftyJSON
 
 extension LSStubResponseDSL {
     open func withJsonBody(_ jsonString: NSString) -> LSStubResponseDSL? {
-        let normalizedJsonString = JSON(data: jsonString.data()).rawString()!
+        let normalizedJsonString = JSON(jsonString).rawString()!
         return self.withBody(NSString(string: normalizedJsonString))
     }
 }
