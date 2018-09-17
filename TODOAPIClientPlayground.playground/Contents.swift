@@ -1,10 +1,10 @@
 //: TODOAPIClient Playground
 
-import XCPlayground
+import PlaygroundSupport
 import KataTODOAPIClient
 import Result
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
 
 //: Create a TODOAPIClient instance.
 let apiClient = TODOAPIClient()

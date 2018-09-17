@@ -12,8 +12,8 @@ import SwiftyJSON
 
 extension LSStubRequestDSL {
     open func withJsonBody(_ jsonString: NSString) -> LSStubRequestDSL? {
-        let normalizedJsonString = try! JSON(data: jsonString.data()).rawString()!
-        return self.withBody(JsonMatcheable(jsonString: normalizedJsonString))
+        let normalizedJsonString = JSON(jsonString).rawString()!
+        return self.withBody(NSString(string: normalizedJsonString))
     }
 }
 
@@ -42,7 +42,11 @@ private class JsonMatcher: LSMatcher {
     }
 
     override func matchesData(_ data: Data!) -> Bool {
-        let json = try! JSON(data: data)
-        return jsonString == json.rawString()!
+        do {
+            let json = try JSON(data: data)
+            return jsonString == json.rawString()!
+        } catch {
+            return false
+        }
     }
 }
