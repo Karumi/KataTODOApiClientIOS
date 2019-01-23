@@ -1,37 +1,40 @@
 PODS:
-  - BothamNetworking (4.0.0):
+  - BothamNetworking (4.0.2):
     - Result (= 4.1.0)
   - Nimble (7.3.2)
-  - Nocilla (0.11.0)
+  - OHHTTPStubs/Core (6.1.0)
+  - OHHTTPStubs/Default (6.1.0):
+    - OHHTTPStubs/Core
+    - OHHTTPStubs/JSON
+    - OHHTTPStubs/NSURLSession
+    - OHHTTPStubs/OHPathHelpers
+  - OHHTTPStubs/JSON (6.1.0):
+    - OHHTTPStubs/Core
+  - OHHTTPStubs/NSURLSession (6.1.0):
+    - OHHTTPStubs/Core
+  - OHHTTPStubs/OHPathHelpers (6.1.0)
+  - OHHTTPStubs/Swift (6.1.0):
+    - OHHTTPStubs/Default
   - Result (4.1.0)
 
 DEPENDENCIES:
-  - BothamNetworking (from `https://github.com/Karumi/BothamNetworking.git`, branch `update-master`)
+  - BothamNetworking (= 4.0.2)
   - Nimble (= 7.3.2)
-  - Nocilla (~> 0.11.0)
+  - OHHTTPStubs/Swift
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - BothamNetworking
     - Nimble
-    - Nocilla
+    - OHHTTPStubs
     - Result
 
-EXTERNAL SOURCES:
-  BothamNetworking:
-    :branch: update-master
-    :git: https://github.com/Karumi/BothamNetworking.git
-
-CHECKOUT OPTIONS:
-  BothamNetworking:
-    :commit: fac1272120702c2f03c6819aa7d58ec61b2ba7c3
-    :git: https://github.com/Karumi/BothamNetworking.git
-
 SPEC CHECKSUMS:
-  BothamNetworking: 948b14f9415be90bbf5bff0e4df743924ca02fd0
+  BothamNetworking: cd68e7b250959a795f1362294baf3a651e9eceae
   Nimble: 5e94a8cacb355943c6c87198035dc4adbb0f10e4
-  Nocilla: 7af7a386071150cc8aa5da4da97d060f049dd61c
+  OHHTTPStubs: 1e21c7d2c084b8153fc53d48400d8919d2d432d0
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
 
-PODFILE CHECKSUM: 72a821db2faa8a0256013ee1eeddec204671c792
+PODFILE CHECKSUM: d88bcec3b858700a4ac723bdae20bc72b31e190d
 
 COCOAPODS: 1.5.3

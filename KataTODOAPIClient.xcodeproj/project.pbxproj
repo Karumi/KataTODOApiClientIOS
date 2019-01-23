@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		49FF1D361F2B9CF400AAA40D /* LSStubRequestDSL+Json.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FF1D351F2B9CF400AAA40D /* LSStubRequestDSL+Json.swift */; };
 		A728FA85059C08A58464AD4B /* Pods_KataTODOAPIClientTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D74BAB9FE6332141F4937F17 /* Pods_KataTODOAPIClientTests.framework */; };
 		DB8AEF1C8A6F3564D6AC77D4 /* Pods_KataTODOAPIClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F618648049BD9D1C4BA6CBB /* Pods_KataTODOAPIClient.framework */; };
 		EB28C8651C6DD32A004A5E74 /* KataTODOAPIClient.h in Headers */ = {isa = PBXBuildFile; fileRef = EB28C8641C6DD32A004A5E74 /* KataTODOAPIClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -17,7 +16,6 @@
 		EB28C8851C6DDA56004A5E74 /* DefaultHeadersRequestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C8841C6DDA56004A5E74 /* DefaultHeadersRequestInterceptor.swift */; };
 		EB28C8881C6DDB1F004A5E74 /* TODOAPIClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C8871C6DDB1F004A5E74 /* TODOAPIClientError.swift */; };
 		EB2B5E8F1E657C8A00B62211 /* KataTODOAPIClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB28C8611C6DD32A004A5E74 /* KataTODOAPIClient.framework */; };
-		EB2B5E951E657D3D00B62211 /* NocillaTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C88C1C6DF109004A5E74 /* NocillaTestCase.swift */; };
 		EB2B5E961E657D4100B62211 /* TODOAPIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C88E1C6DF13D004A5E74 /* TODOAPIClientTests.swift */; };
 		EB2B5E971E657D4600B62211 /* NSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C8941C6DFDE7004A5E74 /* NSError.swift */; };
 		EB2B5E981E657D4900B62211 /* TODOAPIClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C8961C6DFE37004A5E74 /* TODOAPIClientError.swift */; };
@@ -43,7 +41,6 @@
 		0848BC66DFE0F68A5F29B5ED /* Pods-KataTODOAPIClientTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KataTODOAPIClientTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KataTODOAPIClientTests/Pods-KataTODOAPIClientTests.debug.xcconfig"; sourceTree = "<group>"; };
 		0F618648049BD9D1C4BA6CBB /* Pods_KataTODOAPIClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KataTODOAPIClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		35637D6F85613D08BE7B1A1A /* Pods-KataTODOAPIClient-KataTODOAPIClientTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KataTODOAPIClient-KataTODOAPIClientTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-KataTODOAPIClient-KataTODOAPIClientTests/Pods-KataTODOAPIClient-KataTODOAPIClientTests.release.xcconfig"; sourceTree = "<group>"; };
-		49FF1D351F2B9CF400AAA40D /* LSStubRequestDSL+Json.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LSStubRequestDSL+Json.swift"; sourceTree = "<group>"; };
 		8C76A5B3D80902019BAD4A8A /* Pods-KataTODOAPIClientTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KataTODOAPIClientTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-KataTODOAPIClientTests/Pods-KataTODOAPIClientTests.release.xcconfig"; sourceTree = "<group>"; };
 		991833180216B366BC8E248D /* Pods-KataTODOAPIClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KataTODOAPIClient.release.xcconfig"; path = "Pods/Target Support Files/Pods-KataTODOAPIClient/Pods-KataTODOAPIClient.release.xcconfig"; sourceTree = "<group>"; };
 		9E7BE8B071FFE07D669635D6 /* Pods_KataTODOAPIClient_KataTODOAPIClientTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KataTODOAPIClient_KataTODOAPIClientTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -59,7 +56,6 @@
 		EB28C8841C6DDA56004A5E74 /* DefaultHeadersRequestInterceptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultHeadersRequestInterceptor.swift; sourceTree = "<group>"; };
 		EB28C8871C6DDB1F004A5E74 /* TODOAPIClientError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TODOAPIClientError.swift; sourceTree = "<group>"; };
 		EB28C88B1C6DDE7B004A5E74 /* TODOAPIClientPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = TODOAPIClientPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		EB28C88C1C6DF109004A5E74 /* NocillaTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NocillaTestCase.swift; sourceTree = "<group>"; };
 		EB28C88E1C6DF13D004A5E74 /* TODOAPIClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TODOAPIClientTests.swift; sourceTree = "<group>"; };
 		EB28C8911C6DFC23004A5E74 /* getTasksResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = getTasksResponse.json; sourceTree = "<group>"; };
 		EB28C8941C6DFDE7004A5E74 /* NSError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSError.swift; sourceTree = "<group>"; };
@@ -196,7 +192,6 @@
 			children = (
 				EB28C8941C6DFDE7004A5E74 /* NSError.swift */,
 				EB28C8961C6DFE37004A5E74 /* TODOAPIClientError.swift */,
-				49FF1D351F2B9CF400AAA40D /* LSStubRequestDSL+Json.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -204,7 +199,6 @@
 		EB2B5E8B1E657C8A00B62211 /* KataTODOAPIClientTests */ = {
 			isa = PBXGroup;
 			children = (
-				EB28C88C1C6DF109004A5E74 /* NocillaTestCase.swift */,
 				EB28C88E1C6DF13D004A5E74 /* TODOAPIClientTests.swift */,
 				EB28C8931C6DFDD8004A5E74 /* Extensions */,
 				EB28C8901C6DFC08004A5E74 /* JSON */,
@@ -373,14 +367,14 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-KataTODOAPIClientTests/Pods-KataTODOAPIClientTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
-				"${BUILT_PRODUCTS_DIR}/Nocilla/Nocilla.framework",
+				"${BUILT_PRODUCTS_DIR}/OHHTTPStubs/OHHTTPStubs.framework",
 				"${BUILT_PRODUCTS_DIR}/BothamNetworking/BothamNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nimble.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nocilla.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OHHTTPStubs.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BothamNetworking.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 			);
@@ -409,8 +403,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB2B5E981E657D4900B62211 /* TODOAPIClientError.swift in Sources */,
-				EB2B5E951E657D3D00B62211 /* NocillaTestCase.swift in Sources */,
-				49FF1D361F2B9CF400AAA40D /* LSStubRequestDSL+Json.swift in Sources */,
 				EB2B5E961E657D4100B62211 /* TODOAPIClientTests.swift in Sources */,
 				EB2B5E971E657D4600B62211 /* NSError.swift in Sources */,
 			);
