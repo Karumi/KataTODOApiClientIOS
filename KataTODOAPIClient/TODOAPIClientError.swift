@@ -18,7 +18,7 @@ public enum TODOAPIClientError: Error {
 
 }
 
-extension ResultProtocol where Error == BothamAPIClientError {
+extension Result where Error == BothamAPIClientError {
 
     func mapErrorToTODOAPIClientError() -> Result<Value, TODOAPIClientError> {
         return mapError { error in

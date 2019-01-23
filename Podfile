@@ -2,7 +2,7 @@ platform :ios, '11.0'
 use_frameworks!
 
 target 'KataTODOAPIClient' do
-    pod 'BothamNetworking', '3.0.0'
+    pod 'BothamNetworking', :git => 'https://github.com/Karumi/BothamNetworking.git', :branch => 'update-master'
 end
 
 target 'KataTODOAPIClientTests' do

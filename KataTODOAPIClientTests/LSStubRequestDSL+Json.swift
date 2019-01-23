@@ -8,14 +8,6 @@
 
 import Foundation
 import Nocilla
-import SwiftyJSON
-
-extension LSStubRequestDSL {
-    open func withJsonBody(_ jsonString: NSString) -> LSStubRequestDSL? {
-        let normalizedJsonString = JSON(jsonString).rawString(.utf8, options: .sortedKeys)!
-        return self.withBody(NSString(string: normalizedJsonString))
-    }
-}
 
 private class JsonMatcheable: NSObject, LSMatcheable {
     private let jsonString: String
@@ -43,8 +35,8 @@ private class JsonMatcher: LSMatcher {
 
     override func matchesData(_ data: Data!) -> Bool {
         do {
-            let json = try JSON(data: data)
-            return jsonString == json.rawString()!
+            let json = try JSONSerialization.jsonObject(with: data, options: [])
+            return jsonString == json as! String
         } catch {
             return false
         }
