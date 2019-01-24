@@ -237,18 +237,21 @@ class TODOAPIClientTests: XCTestCase {
     //        expect(result?.error).to(beNil())
     //    }
     //
-    //    func testReturnsItemNotFoundIfThereIsNoTaskWithIdTheAssociateId() {
-    //        _ = stubRequest("DELETE", "http://jsonplaceholder.typicode.com/todos/1")
-    //            .andReturn(404)
-    //
-    //        var result: Result<Void, TODOAPIClientError>?
-    //        apiClient.deleteTaskById("1") { response in
-    //            result = response
-    //        }
-    //
-    //        expect(result?.error).toEventually(equal(TODOAPIClientError.itemNotFound))
-    //    }
-    //
+    func testReturnsItemNotFoundIfThereIsNoTaskWithIdTheAssociateId() {
+        stub(condition: isMethodDELETE() &&
+            isHost("jsonplaceholder.typicode.com") &&
+            isPath("/todos/1")) { _ in
+                return fixture(filePath: "", status: 404, headers: ["Content-Type":"application/json"])
+        }
+
+        var result: Result<Void, TODOAPIClientError>?
+        apiClient.deleteTaskById("1") { response in
+            result = response
+        }
+
+        expect(result?.error).toEventually(equal(TODOAPIClientError.itemNotFound))
+    }
+
     func testReturnsNetworkErrorIfThereIsNoConnectionDeletingTask() {
         stub(condition: isMethodDELETE() &&
             isHost("jsonplaceholder.typicode.com") &&
@@ -329,18 +332,21 @@ class TODOAPIClientTests: XCTestCase {
 
         expect(result?.error).toEventually(equal(TODOAPIClientError.networkError))
     }
-    //
-    //    func testReturnsItemNotFoundErrorIfThereIsNoTaksToUpdateWithTheUsedId() {
-    //        _ = stubRequest("PUT", "http://jsonplaceholder.typicode.com/todos/\(anyTask.id)")
-    //            .andReturn(404)
-    //
-    //        var result: Result<TaskDTO, TODOAPIClientError>?
-    //        apiClient.updateTask(anyTask) { response in
-    //            result = response
-    //        }
-    //
-    //        expect(result?.error).toEventually(equal(TODOAPIClientError.itemNotFound))
-    //    }
+
+    func testReturnsItemNotFoundErrorIfThereIsNoTaksToUpdateWithTheUsedId() {
+        stub(condition: isMethodPUT() &&
+            isHost("jsonplaceholder.typicode.com") &&
+            isPath("/todos/\(anyTask.id)")) { _ in
+                return fixture(filePath: "", status: 404, headers: ["Content-Type":"application/json"])
+        }
+
+        var result: Result<TaskDTO, TODOAPIClientError>?
+        apiClient.updateTask(anyTask) { response in
+            result = response
+        }
+
+        expect(result?.error).toEventually(equal(TODOAPIClientError.itemNotFound))
+    }
     //
     //    func testReturnsUnknowErrorIfThereIsAnyHandledErrorUpdatingATask() {
     //        _ = stubRequest("PUT", "http://jsonplaceholder.typicode.com/todos/\(anyTask.id)")
@@ -369,5 +375,6 @@ class TODOAPIClientTests: XCTestCase {
     }
 
 }
+
 
 
