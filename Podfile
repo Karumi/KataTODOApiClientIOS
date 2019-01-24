@@ -6,8 +6,8 @@ target 'KataTODOAPIClient' do
 end
 
 target 'KataTODOAPIClientTests' do
-    pod 'Nimble', '7.3.2'
     pod 'OHHTTPStubs/Swift'
+    pod 'Nimble', '7.3.2'
 end
 
 
