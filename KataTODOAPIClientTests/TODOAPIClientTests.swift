@@ -7,21 +7,35 @@
 //
 
 import Foundation
-import Nocilla
 import Nimble
 import XCTest
 import Result
+import OHHTTPStubs
 @testable import KataTODOAPIClient
 
-class TODOAPIClientTests: NocillaTestCase {
+class TODOAPIClientTests: XCTestCase {
+
+    override func setUp() {
+        super.setUp()
+        OHHTTPStubs.onStubMissing { request in
+            XCTFail("Missing stub for \(request)")
+        }
+    }
+
+    override func tearDown() {
+        OHHTTPStubs.removeAllStubs()
+        super.tearDown()
+    }
 
     fileprivate let apiClient = TODOAPIClient()
     fileprivate let anyTask = TaskDTO(userId: "1", id: "2", title: "Finish this kata", completed: true)
 
     func testSendsContentTypeHeader() {
-        stubRequest("GET", "http://jsonplaceholder.typicode.com/todos")
-            .withHeaders(["Content-Type": "application/json", "Accept": "application/json"])?
-            .andReturn(200)
+        stub(condition: isMethodGET() &&
+            isHost("jsonplaceholder.typicode.com") &&
+            isPath("/todos")) { _ in
+                return fixture(filePath: "", status: 200, headers: ["Content-Type":"application/json"])
+        }
 
         var result: Result<[TaskDTO], TODOAPIClientError>?
         apiClient.getAllTasks { response in
@@ -32,9 +46,12 @@ class TODOAPIClientTests: NocillaTestCase {
     }
 
     func testParsesTasksProperlyGettingAllTheTasks() {
-        stubRequest("GET", "http://jsonplaceholder.typicode.com/todos")
-            .andReturn(200)?
-            .withJsonBody(fromJsonFile("getTasksResponse"))
+        stub(condition: isMethodGET() &&
+            isHost("jsonplaceholder.typicode.com") &&
+            isPath("/todos")) { _ in
+                let stubPath = OHPathForFile("getTasksResponse.json", type(of: self))
+                return fixture(filePath: stubPath!, status: 200, headers: ["Content-Type":"application/json"])
+        }
 
         var result: Result<[TaskDTO], TODOAPIClientError>?
         apiClient.getAllTasks { response in
@@ -42,12 +59,16 @@ class TODOAPIClientTests: NocillaTestCase {
         }
 
         expect(result?.value?.count).toEventually(equal(200))
-        assertTaskContainsExpectedValues(task: (result?.value?[0])!)
+        assertTaskContainsExpectedValues((result?.value?[0])!)
     }
 
     func testReturnsNetworkErrorIfThereIsNoConnectionGettingAllTasks() {
-        stubRequest("GET", "http://jsonplaceholder.typicode.com/todos")
-            .andFailWithError(NSError.networkError())
+        stub(condition: isMethodGET() &&
+            isHost("jsonplaceholder.typicode.com") &&
+            isPath("/todos")) { _ in
+                let notConnectedError = NSError(domain: NSURLErrorDomain, code: URLError.notConnectedToInternet.rawValue)
+                return OHHTTPStubsResponse(error:notConnectedError)
+        }
 
         var result: Result<[TaskDTO], TODOAPIClientError>?
         apiClient.getAllTasks { response in
@@ -57,7 +78,7 @@ class TODOAPIClientTests: NocillaTestCase {
         expect(result?.error).toEventually(equal(TODOAPIClientError.networkError))
     }
 
-    private func assertTaskContainsExpectedValues(task: TaskDTO) {
+    fileprivate func assertTaskContainsExpectedValues(_ task: TaskDTO) {
         expect(task.id).to(equal("1"))
         expect(task.userId).to(equal("1"))
         expect(task.title).to(equal("delectus aut autem"))

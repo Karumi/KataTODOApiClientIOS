@@ -13,29 +13,21 @@ import Result
 open class TODOAPIClient {
 
     fileprivate let apiClient: BothamAPIClient
-    fileprivate let parser: TaskDTOJSONParser
 
     public init() {
         self.apiClient = BothamAPIClient(baseEndpoint: TODOAPIClientConfig.baseEndpoint)
         self.apiClient.requestInterceptors.append(DefaultHeadersInterceptor())
-        self.parser = TaskDTOJSONParser()
     }
 
     open func getAllTasks(_ completion: @escaping (Result<[TaskDTO], TODOAPIClientError>) -> Void) {
         apiClient.GET(TODOAPIClientConfig.tasksEndpoint) { result in
-            completion(result.mapJSON { json -> [TaskDTO] in
-                let tasks: [TaskDTO] = self.parser.fromJSON(json)
-                return tasks
-            }.mapErrorToTODOAPIClientError())
+            completion(result.mapJSON().mapErrorToTODOAPIClientError())
         }
     }
 
     open func getTaskById(_ id: String, completion: @escaping (Result<TaskDTO, TODOAPIClientError>) -> Void) {
         apiClient.GET("\(TODOAPIClientConfig.tasksEndpoint)/\(id)") { result in
-            completion(result.mapJSON { json -> TaskDTO in
-                let task: TaskDTO = self.parser.fromJSON(json)
-                return task
-            }.mapErrorToTODOAPIClientError())
+            completion(result.mapJSON().mapErrorToTODOAPIClientError())
         }
     }
 
@@ -45,10 +37,7 @@ open class TODOAPIClient {
             body: ["userId": userId as AnyObject,
                     "title": title as AnyObject,
                     "completed": completed as AnyObject]) { result in
-            completion(result.mapJSON { json -> TaskDTO in
-                let task: TaskDTO = self.parser.fromJSON(json)
-                return task
-            }.mapErrorToTODOAPIClientError())
+            completion(result.mapJSON().mapErrorToTODOAPIClientError())
         }
     }
 
@@ -67,10 +56,7 @@ open class TODOAPIClient {
                     "userId": task.userId as AnyObject,
                     "title": task.title as AnyObject,
                     "completed": task.completed as AnyObject]) { result in
-                        completion(result.mapJSON { json -> TaskDTO in
-                            let task: TaskDTO = self.parser.fromJSON(json)
-                            return task
-                        }.mapErrorToTODOAPIClientError())
+                        completion(result.mapJSON().mapErrorToTODOAPIClientError())
             }
     }
 
