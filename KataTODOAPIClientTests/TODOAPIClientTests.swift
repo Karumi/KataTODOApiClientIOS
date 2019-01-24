@@ -7,21 +7,35 @@
 //
 
 import Foundation
-import Nocilla
 import Nimble
 import XCTest
 import Result
+import OHHTTPStubs
 @testable import KataTODOAPIClient
 
-class TODOAPIClientTests: NocillaTestCase {
+class TODOAPIClientTests: XCTestCase {
+
+    override func setUp() {
+        super.setUp()
+        OHHTTPStubs.onStubMissing { request in
+            XCTFail("Missing stub for \(request)")
+        }
+    }
+
+    override func tearDown() {
+        OHHTTPStubs.removeAllStubs()
+        super.tearDown()
+    }
 
     fileprivate let apiClient = TODOAPIClient()
     fileprivate let anyTask = TaskDTO(userId: "1", id: "2", title: "Finish this kata", completed: true)
 
     func testSendsContentTypeHeader() {
-        stubRequest("GET", "http://jsonplaceholder.typicode.com/todos")
-            .withHeaders(["Content-Type": "application/json", "Accept": "application/json"])?
-            .andReturn(200)
+        stub(condition: isMethodGET() &&
+            isHost("jsonplaceholder.typicode.com") &&
+            isPath("/todos")) { _ in
+                return fixture(filePath: "", status: 200, headers: ["Content-Type":"application/json"])
+        }
 
         var result: Result<[TaskDTO], TODOAPIClientError>?
         apiClient.getAllTasks { response in
@@ -32,9 +46,12 @@ class TODOAPIClientTests: NocillaTestCase {
     }
 
     func testParsesTasksProperlyGettingAllTheTasks() {
-        stubRequest("GET", "http://jsonplaceholder.typicode.com/todos")
-            .andReturn(200)?
-            .withJsonBody(fromJsonFile("getTasksResponse"))
+        stub(condition: isMethodGET() &&
+            isHost("jsonplaceholder.typicode.com") &&
+            isPath("/todos")) { _ in
+                let stubPath = OHPathForFile("getTasksResponse.json", type(of: self))
+                return fixture(filePath: stubPath!, status: 200, headers: ["Content-Type":"application/json"])
+        }
 
         var result: Result<[TaskDTO], TODOAPIClientError>?
         apiClient.getAllTasks { response in
@@ -46,8 +63,12 @@ class TODOAPIClientTests: NocillaTestCase {
     }
 
     func testReturnsNetworkErrorIfThereIsNoConnectionGettingAllTasks() {
-        stubRequest("GET", "http://jsonplaceholder.typicode.com/todos")
-            .andFailWithError(NSError.networkError())
+        stub(condition: isMethodGET() &&
+            isHost("jsonplaceholder.typicode.com") &&
+            isPath("/todos")) { _ in
+                let notConnectedError = NSError(domain: NSURLErrorDomain, code: URLError.notConnectedToInternet.rawValue)
+                return OHHTTPStubsResponse(error:notConnectedError)
+        }
 
         var result: Result<[TaskDTO], TODOAPIClientError>?
         apiClient.getAllTasks { response in
@@ -58,8 +79,11 @@ class TODOAPIClientTests: NocillaTestCase {
     }
 
     func testReturnsUnknowErrorIfTheErrorIsNotHandledGettingAllTasks() {
-        stubRequest("GET", "http://jsonplaceholder.typicode.com/todos")
-            .andReturn(418)
+        stub(condition: isMethodGET() &&
+            isHost("jsonplaceholder.typicode.com") &&
+            isPath("/todos")) { _ in
+                return fixture(filePath: "", status: 418, headers: ["Content-Type":"application/json"])
+        }
 
         var result: Result<[TaskDTO], TODOAPIClientError>?
         apiClient.getAllTasks { response in
@@ -70,9 +94,12 @@ class TODOAPIClientTests: NocillaTestCase {
     }
 
     func testParsesTaskProperlyGettingTaskById() {
-        stubRequest("GET", "http://jsonplaceholder.typicode.com/todos/1")
-            .andReturn(200)?
-            .withJsonBody(fromJsonFile("getTaskByIdResponse"))
+        stub(condition: isMethodGET() &&
+            isHost("jsonplaceholder.typicode.com") &&
+            isPath("/todos/1")) { _ in
+                let stubPath = OHPathForFile("getTaskByIdResponse.json", type(of: self))
+                return fixture(filePath: stubPath!, status: 200, headers: ["Content-Type":"application/json"])
+        }
 
         var result: Result<TaskDTO, TODOAPIClientError>?
         apiClient.getTaskById("1") { response in
@@ -84,8 +111,11 @@ class TODOAPIClientTests: NocillaTestCase {
     }
 
     func testReturnsItemNotFoundErrorIfTheTaskIdDoesNotExist() {
-        stubRequest("GET", "http://jsonplaceholder.typicode.com/todos/1")
-            .andReturn(404)
+        stub(condition: isMethodGET() &&
+            isHost("jsonplaceholder.typicode.com") &&
+            isPath("/todos/1")) { _ in
+                return fixture(filePath: "", status: 404, headers: ["Content-Type":"application/json"])
+        }
 
         var result: Result<TaskDTO, TODOAPIClientError>?
         apiClient.getTaskById("1") { response in
@@ -96,8 +126,12 @@ class TODOAPIClientTests: NocillaTestCase {
     }
 
     func testReturnsNetworkErrorIfThereIsNoConnectionGettingTaskById() {
-        stubRequest("GET", "http://jsonplaceholder.typicode.com/todos/1")
-            .andFailWithError(NSError.networkError())
+        stub(condition: isMethodGET() &&
+            isHost("jsonplaceholder.typicode.com") &&
+            isPath("/todos/1")) { _ in
+                let notConnectedError = NSError(domain: NSURLErrorDomain, code: URLError.notConnectedToInternet.rawValue)
+                return OHHTTPStubsResponse(error:notConnectedError)
+        }
 
         var result: Result<TaskDTO, TODOAPIClientError>?
         apiClient.getTaskById("1") { response in
@@ -108,8 +142,11 @@ class TODOAPIClientTests: NocillaTestCase {
     }
 
     func testReturnsUnknowErrorIfTheErrorIsNotHandledGettingTasksById() {
-        stubRequest("GET", "http://jsonplaceholder.typicode.com/todos/1")
-            .andReturn(418)
+        stub(condition: isMethodGET() &&
+            isHost("jsonplaceholder.typicode.com") &&
+            isPath("/todos/1")) { _ in
+                return fixture(filePath: "", status: 418, headers: ["Content-Type":"application/json"])
+        }
 
         var result: Result<TaskDTO, TODOAPIClientError>?
         apiClient.getTaskById("1") { response in
@@ -120,9 +157,15 @@ class TODOAPIClientTests: NocillaTestCase {
     }
 
     func testSendsTheCorrectBodyAddingANewTask() {
-        _ = stubRequest("POST", "http://jsonplaceholder.typicode.com/todos")
-            .withJsonBody(fromJsonFile("addTaskToUserRequest"))?
-            .andReturn(201)?.withJsonBody(fromJsonFile("addTaskToUserResponse"))
+        stub(condition: isMethodPOST() &&
+            isHost("jsonplaceholder.typicode.com") &&
+            isPath("/todos") &&
+            hasJsonBody(["userId": "1",
+                         "title": "Finish this kata",
+                         "completed": false])) { _ in
+                            let stubPath = OHPathForFile("addTaskToUserResponse.json", type(of: self))
+                            return fixture(filePath: stubPath!, status: 201, headers: ["Content-Type":"application/json"])
+        }
 
         var result: Result<TaskDTO, TODOAPIClientError>?
         apiClient.addTaskToUser("1", title: "Finish this kata", completed: false) { response in
@@ -134,9 +177,12 @@ class TODOAPIClientTests: NocillaTestCase {
     }
 
     func testParsesTheTaskCreatedProperlyAddingANewTask() {
-        stubRequest("POST", "http://jsonplaceholder.typicode.com/todos")
-            .andReturn(201)?
-            .withJsonBody(fromJsonFile("addTaskToUserResponse"))
+        stub(condition: isMethodPOST() &&
+            isHost("jsonplaceholder.typicode.com") &&
+            isPath("/todos")) { _ in
+                let stubPath = OHPathForFile("addTaskToUserResponse.json", type(of: self))
+                return fixture(filePath: stubPath!, status: 201, headers: ["Content-Type":"application/json"])
+        }
 
         var result: Result<TaskDTO, TODOAPIClientError>?
         apiClient.addTaskToUser("1", title: "delectus aut autem", completed: false) { response in
@@ -148,8 +194,12 @@ class TODOAPIClientTests: NocillaTestCase {
     }
 
     func testReturnsNetworkErrorIfThereIsNoConnectionAddingATask() {
-        stubRequest("POST", "http://jsonplaceholder.typicode.com/todos")
-            .andFailWithError(NSError.networkError())
+        stub(condition: isMethodPOST() &&
+            isHost("jsonplaceholder.typicode.com") &&
+            isPath("/todos")) { _ in
+                let notConnectedError = NSError(domain: NSURLErrorDomain, code: URLError.notConnectedToInternet.rawValue)
+                return OHHTTPStubsResponse(error:notConnectedError)
+        }
 
         var result: Result<TaskDTO, TODOAPIClientError>?
         apiClient.addTaskToUser("1", title: "delectus aut autem", completed: false) { response in
@@ -160,8 +210,11 @@ class TODOAPIClientTests: NocillaTestCase {
     }
 
     func testReturnsUnknowErrorIfThereIsAnyErrorAddingATask() {
-        stubRequest("POST", "http://jsonplaceholder.typicode.com/todos")
-            .andReturn(418)
+        stub(condition: isMethodPOST() &&
+            isHost("jsonplaceholder.typicode.com") &&
+            isPath("/todos")) { _ in
+                return fixture(filePath: "", status: 418, headers: ["Content-Type":"application/json"])
+        }
 
         var result: Result<TaskDTO, TODOAPIClientError>?
         apiClient.addTaskToUser("1", title: "delectus aut autem", completed: false) { response in
@@ -172,8 +225,11 @@ class TODOAPIClientTests: NocillaTestCase {
     }
 
     func testSendsTheRequestToTheCorrectPathDeletingATask() {
-        stubRequest("DELETE", "http://jsonplaceholder.typicode.com/todos/1")
-            .andReturn(200)
+        stub(condition: isMethodDELETE() &&
+            isHost("jsonplaceholder.typicode.com") &&
+            isPath("/todos/1")) { _ in
+                return fixture(filePath: "", status: 200, headers: ["Content-Type":"application/json"])
+        }
 
         var result: Result<Void, TODOAPIClientError>?
         apiClient.deleteTaskById("1") { response in
@@ -185,8 +241,11 @@ class TODOAPIClientTests: NocillaTestCase {
     }
 
     func testReturnsItemNotFoundIfThereIsNoTaskWithIdTheAssociateId() {
-        stubRequest("DELETE", "http://jsonplaceholder.typicode.com/todos/1")
-            .andReturn(404)
+        stub(condition: isMethodDELETE() &&
+            isHost("jsonplaceholder.typicode.com") &&
+            isPath("/todos/1")) { _ in
+                return fixture(filePath: "", status: 404, headers: ["Content-Type":"application/json"])
+        }
 
         var result: Result<Void, TODOAPIClientError>?
         apiClient.deleteTaskById("1") { response in
@@ -197,8 +256,12 @@ class TODOAPIClientTests: NocillaTestCase {
     }
 
     func testReturnsNetworkErrorIfThereIsNoConnectionDeletingTask() {
-        stubRequest("DELETE", "http://jsonplaceholder.typicode.com/todos/1")
-            .andFailWithError(NSError.networkError())
+        stub(condition: isMethodDELETE() &&
+            isHost("jsonplaceholder.typicode.com") &&
+            isPath("/todos/1")) { _ in
+                let notConnectedError = NSError(domain: NSURLErrorDomain, code: URLError.notConnectedToInternet.rawValue)
+                return OHHTTPStubsResponse(error:notConnectedError)
+        }
 
         var result: Result<Void, TODOAPIClientError>?
         apiClient.deleteTaskById("1") { response in
@@ -209,8 +272,11 @@ class TODOAPIClientTests: NocillaTestCase {
     }
 
     func testReturnsUnknownErrorIfThereIsAnyErrorDeletingTask() {
-        stubRequest("DELETE", "http://jsonplaceholder.typicode.com/todos/1")
-            .andReturn(418)
+        stub(condition: isMethodDELETE() &&
+            isHost("jsonplaceholder.typicode.com") &&
+            isPath("/todos/1")) { _ in
+                return fixture(filePath: "", status: 418, headers: ["Content-Type":"application/json"])
+        }
 
         var result: Result<Void, TODOAPIClientError>?
         apiClient.deleteTaskById("1") { response in
@@ -221,10 +287,16 @@ class TODOAPIClientTests: NocillaTestCase {
     }
 
     func testSendsTheExpectedBodyUpdatingATask() {
-        stubRequest("PUT", "http://jsonplaceholder.typicode.com/todos/2")
-            .withJsonBody(fromJsonFile("updateTaskRequest"))?
-            .andReturn(200)?
-            .withJsonBody(fromJsonFile("updateTaskResponse"))
+        stub(condition: isMethodPUT() &&
+            isHost("jsonplaceholder.typicode.com") &&
+            isPath("/todos/2") &&
+            hasJsonBody(["id": "2",
+                         "userId": "1",
+                         "title": "Finish this kata",
+                         "completed": true])) { _ in
+                            let stubPath = OHPathForFile("updateTaskResponse.json", type(of: self))
+                            return fixture(filePath: stubPath!, status: 200, headers: ["Content-Type":"application/json"])
+        }
 
         var result: Result<TaskDTO, TODOAPIClientError>?
         apiClient.updateTask(anyTask) { response in
@@ -235,9 +307,12 @@ class TODOAPIClientTests: NocillaTestCase {
     }
 
     func testParsesTheTaskProperlyUpdatingATask() {
-        stubRequest("PUT", "http://jsonplaceholder.typicode.com/todos/\(anyTask.id)")
-            .andReturn(200)?
-            .withJsonBody(fromJsonFile("updateTaskResponse"))
+        stub(condition: isMethodPUT() &&
+            isHost("jsonplaceholder.typicode.com") &&
+            isPath("/todos/\(anyTask.id)")) { _ in
+                let stubPath = OHPathForFile("updateTaskResponse.json", type(of: self))
+                return fixture(filePath: stubPath!, status: 200, headers: ["Content-Type":"application/json"])
+        }
 
         var result: Result<TaskDTO, TODOAPIClientError>?
         apiClient.updateTask(anyTask) { response in
@@ -249,8 +324,12 @@ class TODOAPIClientTests: NocillaTestCase {
     }
 
     func testReturnsNetworkErrorIfThereIsNoConnectionUpdatingATask() {
-        stubRequest("PUT", "http://jsonplaceholder.typicode.com/todos/\(anyTask.id)")
-            .andFailWithError(NSError.networkError())
+        stub(condition: isMethodPUT() &&
+            isHost("jsonplaceholder.typicode.com") &&
+            isPath("/todos/\(anyTask.id)")) { _ in
+                let notConnectedError = NSError(domain: NSURLErrorDomain, code: URLError.notConnectedToInternet.rawValue)
+                return OHHTTPStubsResponse(error:notConnectedError)
+        }
 
         var result: Result<TaskDTO, TODOAPIClientError>?
         apiClient.updateTask(anyTask) { response in
@@ -261,8 +340,11 @@ class TODOAPIClientTests: NocillaTestCase {
     }
 
     func testReturnsItemNotFoundErrorIfThereIsNoTaksToUpdateWithTheUsedId() {
-        stubRequest("PUT", "http://jsonplaceholder.typicode.com/todos/\(anyTask.id)")
-            .andReturn(404)
+        stub(condition: isMethodPUT() &&
+            isHost("jsonplaceholder.typicode.com") &&
+            isPath("/todos/\(anyTask.id)")) { _ in
+                return fixture(filePath: "", status: 404, headers: ["Content-Type":"application/json"])
+        }
 
         var result: Result<TaskDTO, TODOAPIClientError>?
         apiClient.updateTask(anyTask) { response in
@@ -273,8 +355,11 @@ class TODOAPIClientTests: NocillaTestCase {
     }
 
     func testReturnsUnknowErrorIfThereIsAnyHandledErrorUpdatingATask() {
-        stubRequest("PUT", "http://jsonplaceholder.typicode.com/todos/\(anyTask.id)")
-            .andReturn(418)
+        stub(condition: isMethodPUT() &&
+            isHost("jsonplaceholder.typicode.com") &&
+            isPath("/todos/\(anyTask.id)")) { _ in
+                return fixture(filePath: "", status: 418, headers: ["Content-Type":"application/json"])
+        }
 
         var result: Result<TaskDTO, TODOAPIClientError>?
         apiClient.updateTask(anyTask) { response in
