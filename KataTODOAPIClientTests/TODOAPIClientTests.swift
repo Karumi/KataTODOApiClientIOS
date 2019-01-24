@@ -347,18 +347,21 @@ class TODOAPIClientTests: XCTestCase {
 
         expect(result?.error).toEventually(equal(TODOAPIClientError.itemNotFound))
     }
-    //
-    //    func testReturnsUnknowErrorIfThereIsAnyHandledErrorUpdatingATask() {
-    //        _ = stubRequest("PUT", "http://jsonplaceholder.typicode.com/todos/\(anyTask.id)")
-    //            .andReturn(418)
-    //
-    //        var result: Result<TaskDTO, TODOAPIClientError>?
-    //        apiClient.updateTask(anyTask) { response in
-    //            result = response
-    //        }
-    //
-    //        expect(result?.error).toEventually(equal(TODOAPIClientError.unknownError(code: 418)))
-    //    }
+
+    func testReturnsUnknowErrorIfThereIsAnyHandledErrorUpdatingATask() {
+        stub(condition: isMethodPUT() &&
+            isHost("jsonplaceholder.typicode.com") &&
+            isPath("/todos/\(anyTask.id)")) { _ in
+                return fixture(filePath: "", status: 418, headers: ["Content-Type":"application/json"])
+        }
+
+        var result: Result<TaskDTO, TODOAPIClientError>?
+        apiClient.updateTask(anyTask) { response in
+            result = response
+        }
+
+        expect(result?.error).toEventually(equal(TODOAPIClientError.unknownError(code: 418)))
+    }
 
     fileprivate func assertTaskContainsExpectedValues(_ task: TaskDTO) {
         expect(task.id).to(equal("1"))
@@ -375,6 +378,7 @@ class TODOAPIClientTests: XCTestCase {
     }
 
 }
+
 
 
 
