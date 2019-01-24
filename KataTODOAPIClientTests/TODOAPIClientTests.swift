@@ -175,32 +175,39 @@ class TODOAPIClientTests: XCTestCase {
         expect(result).toEventuallyNot(beNil())
         expect(result?.error).toEventually(beNil())
     }
-    //
-    //    func testParsesTheTaskCreatedProperlyAddingANewTask() {
-    //        _ = stubRequest("POST", "http://jsonplaceholder.typicode.com/todos")
-    //            .andReturn(201)?
-    //            .withBody(fromJsonFile("addTaskToUserResponse"))
-    //
-    //        var result: Result<TaskDTO, TODOAPIClientError>?
-    //        apiClient.addTaskToUser("1", title: "delectus aut autem", completed: false) { response in
-    //            result = response
-    //        }
-    //
-    //        expect(result).toEventuallyNot(beNil())
-    //        assertTaskContainsExpectedValues((result?.value)!)
-    //    }
-    //
-    //    func testReturnsNetworkErrorIfThereIsNoConnectionAddingATask() {
-    //        stubRequest("POST", "http://jsonplaceholder.typicode.com/todos")
-    //            .andFailWithError(NSError.networkError())
-    //
-    //        var result: Result<TaskDTO, TODOAPIClientError>?
-    //        apiClient.addTaskToUser("1", title: "delectus aut autem", completed: false) { response in
-    //            result = response
-    //        }
-    //
-    //        expect(result?.error).toEventually(equal(TODOAPIClientError.networkError))
-    //    }
+
+        func testParsesTheTaskCreatedProperlyAddingANewTask() {
+            stub(condition: isMethodPOST() &&
+                isHost("jsonplaceholder.typicode.com") &&
+                isPath("/todos")) { _ in
+                                let stubPath = OHPathForFile("addTaskToUserResponse.json", type(of: self))
+                                return fixture(filePath: stubPath!, status: 201, headers: ["Content-Type":"application/json"])
+            }
+
+            var result: Result<TaskDTO, TODOAPIClientError>?
+            apiClient.addTaskToUser("1", title: "delectus aut autem", completed: false) { response in
+                result = response
+            }
+
+            expect(result).toEventuallyNot(beNil())
+            assertTaskContainsExpectedValues((result?.value)!)
+        }
+
+        func testReturnsNetworkErrorIfThereIsNoConnectionAddingATask() {
+            stub(condition: isMethodPOST() &&
+                isHost("jsonplaceholder.typicode.com") &&
+                isPath("/todos")) { _ in
+                    let notConnectedError = NSError(domain: NSURLErrorDomain, code: URLError.notConnectedToInternet.rawValue)
+                    return OHHTTPStubsResponse(error:notConnectedError)
+            }
+
+            var result: Result<TaskDTO, TODOAPIClientError>?
+            apiClient.addTaskToUser("1", title: "delectus aut autem", completed: false) { response in
+                result = response
+            }
+
+            expect(result?.error).toEventually(equal(TODOAPIClientError.networkError))
+        }
     //
     //    func testReturnsUnknowErrorIfThereIsAnyErrorAddingATask() {
     //        _ = stubRequest("POST", "http://jsonplaceholder.typicode.com/todos")
@@ -239,17 +246,21 @@ class TODOAPIClientTests: XCTestCase {
     //        expect(result?.error).toEventually(equal(TODOAPIClientError.itemNotFound))
     //    }
     //
-    //    func testReturnsNetworkErrorIfThereIsNoConnectionDeletingTask() {
-    //        _ = stubRequest("DELETE", "http://jsonplaceholder.typicode.com/todos/1")
-    //            .andFailWithError(NSError.networkError())
-    //
-    //        var result: Result<Void, TODOAPIClientError>?
-    //        apiClient.deleteTaskById("1") { response in
-    //            result = response
-    //        }
-    //
-    //        expect(result?.error).toEventually(equal(TODOAPIClientError.networkError))
-    //    }
+        func testReturnsNetworkErrorIfThereIsNoConnectionDeletingTask() {
+            stub(condition: isMethodDELETE() &&
+                isHost("jsonplaceholder.typicode.com") &&
+                isPath("/todos/1")) { _ in
+                    let notConnectedError = NSError(domain: NSURLErrorDomain, code: URLError.notConnectedToInternet.rawValue)
+                    return OHHTTPStubsResponse(error:notConnectedError)
+            }
+
+            var result: Result<Void, TODOAPIClientError>?
+            apiClient.deleteTaskById("1") { response in
+                result = response
+            }
+
+            expect(result?.error).toEventually(equal(TODOAPIClientError.networkError))
+        }
     //
     //    func testReturnsUnknownErrorIfThereIsAnyErrorDeletingTask() {
     //        _ = stubRequest("DELETE", "http://jsonplaceholder.typicode.com/todos/1")
@@ -297,17 +308,21 @@ class TODOAPIClientTests: XCTestCase {
     //        assertUpdatedTaskContainsExpectedValues((result?.value)!)
     //    }
     //
-    //    func testReturnsNetworkErrorIfThereIsNoConnectionUpdatingATask() {
-    //        _ = stubRequest("PUT", "http://jsonplaceholder.typicode.com/todos/\(anyTask.id)")
-    //            .andFailWithError(NSError.networkError())
-    //
-    //        var result: Result<TaskDTO, TODOAPIClientError>?
-    //        apiClient.updateTask(anyTask) { response in
-    //            result = response
-    //        }
-    //
-    //        expect(result?.error).toEventually(equal(TODOAPIClientError.networkError))
-    //    }
+        func testReturnsNetworkErrorIfThereIsNoConnectionUpdatingATask() {
+            stub(condition: isMethodPUT() &&
+                isHost("jsonplaceholder.typicode.com") &&
+                isPath("/todos/\(anyTask.id)")) { _ in
+                    let notConnectedError = NSError(domain: NSURLErrorDomain, code: URLError.notConnectedToInternet.rawValue)
+                    return OHHTTPStubsResponse(error:notConnectedError)
+            }
+
+            var result: Result<TaskDTO, TODOAPIClientError>?
+            apiClient.updateTask(anyTask) { response in
+                result = response
+            }
+
+            expect(result?.error).toEventually(equal(TODOAPIClientError.networkError))
+        }
     //
     //    func testReturnsItemNotFoundErrorIfThereIsNoTaksToUpdateWithTheUsedId() {
     //        _ = stubRequest("PUT", "http://jsonplaceholder.typicode.com/todos/\(anyTask.id)")
