@@ -223,20 +223,23 @@ class TODOAPIClientTests: XCTestCase {
 
         expect(result?.error).toEventually(equal(TODOAPIClientError.unknownError(code: 418)))
     }
-    //
-    //    func testSendsTheRequestToTheCorrectPathDeletingATask() {
-    //        _ = stubRequest("DELETE", "http://jsonplaceholder.typicode.com/todos/1")
-    //            .andReturn(200)
-    //
-    //        var result: Result<Void, TODOAPIClientError>?
-    //        apiClient.deleteTaskById("1") { response in
-    //            result = response
-    //        }
-    //
-    //        expect(result).toEventuallyNot(beNil())
-    //        expect(result?.error).to(beNil())
-    //    }
-    //
+
+    func testSendsTheRequestToTheCorrectPathDeletingATask() {
+        stub(condition: isMethodDELETE() &&
+            isHost("jsonplaceholder.typicode.com") &&
+            isPath("/todos/1")) { _ in
+                return fixture(filePath: "", status: 200, headers: ["Content-Type":"application/json"])
+        }
+
+        var result: Result<Void, TODOAPIClientError>?
+        apiClient.deleteTaskById("1") { response in
+            result = response
+        }
+
+        expect(result).toEventuallyNot(beNil())
+        expect(result?.error).to(beNil())
+    }
+
     func testReturnsItemNotFoundIfThereIsNoTaskWithIdTheAssociateId() {
         stub(condition: isMethodDELETE() &&
             isHost("jsonplaceholder.typicode.com") &&
@@ -302,21 +305,24 @@ class TODOAPIClientTests: XCTestCase {
 
         expect(result).toEventuallyNot(beNil())
     }
-    //
-    //    func testParsesTheTaskProperlyUpdatingATask() {
-    //        _ = stubRequest("PUT", "http://jsonplaceholder.typicode.com/todos/\(anyTask.id)")
-    //            .andReturn(200)?
-    //            .withBody(fromJsonFile("updateTaskResponse"))
-    //
-    //        var result: Result<TaskDTO, TODOAPIClientError>?
-    //        apiClient.updateTask(anyTask) { response in
-    //            result = response
-    //        }
-    //
-    //        expect(result).toEventuallyNot(beNil())
-    //        assertUpdatedTaskContainsExpectedValues((result?.value)!)
-    //    }
-    //
+
+    func testParsesTheTaskProperlyUpdatingATask() {
+        stub(condition: isMethodPUT() &&
+            isHost("jsonplaceholder.typicode.com") &&
+            isPath("/todos/\(anyTask.id)")) { _ in
+                let stubPath = OHPathForFile("updateTaskResponse.json", type(of: self))
+                return fixture(filePath: stubPath!, status: 200, headers: ["Content-Type":"application/json"])
+        }
+
+        var result: Result<TaskDTO, TODOAPIClientError>?
+        apiClient.updateTask(anyTask) { response in
+            result = response
+        }
+
+        expect(result).toEventuallyNot(beNil())
+        assertUpdatedTaskContainsExpectedValues((result?.value)!)
+    }
+
     func testReturnsNetworkErrorIfThereIsNoConnectionUpdatingATask() {
         stub(condition: isMethodPUT() &&
             isHost("jsonplaceholder.typicode.com") &&
@@ -378,7 +384,3 @@ class TODOAPIClientTests: XCTestCase {
     }
 
 }
-
-
-
-
