@@ -1,14 +1,14 @@
 language: objective-c
-osx_image: xcode9
+osx_image: xcode10.1
 
 before_install:
   - brew update
   - gem install xcpretty
-  - gem install cocoapods --version 1.2.1
-  - pod _1.2.1_ repo update
+  - gem install cocoapods --version 1.5.3
+  - pod _1.5.3_ repo update
 
 install:
-  - pod _1.2.1_ install
+  - pod _1.5.3_ install
 
 script:
   - swiftlint

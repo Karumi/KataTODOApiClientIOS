@@ -2,7 +2,7 @@
 ============================
 
 - We are here to practice integration testing using HTTP stubbing.
-- We are going to use [Nocilla][nocilla] to simulate a HTTP server.
+- We are going to use [OHHTTPStubs][OHHTTPStubs] to simulate a HTTP server.
 - We are going to use [Nimble][nimble] to perform assertions.
 - We are going to practice pair programming.
 
@@ -40,9 +40,6 @@ Our recommendation for this exercise is:
 
 * If you get stuck, `master` branch contains all the tests already solved.
 
-* You will find some utilities to help you test the APIClient easily in:
-  ``KataTODOAPIClientTests/Extensions/NSError`` and ``KataTODOAPIClientTests/Extensions/NocillaTestCase``.
-
 ## Extra Tasks
 
 If you've covered all the application functionality using integration tests you can continue with some extra tasks: 
@@ -61,7 +58,7 @@ There are some links which can be useful to finish these tasks:
 * [BothamNetworking documentation][bothamnetworking]
 * [World-Class Testing Development Pipeline for Android - Part 3][wordl-class-testing-development-pipeline]
 
-#License
+# License
 
 Copyright 2016 Karumi
 
@@ -78,7 +75,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 [karumilogo]: https://cloud.githubusercontent.com/assets/858090/11626547/e5a1dc66-9ce3-11e5-908d-537e07e82090.png
-[nocilla]: https://github.com/luisobo/Nocilla
+[OHHTTPStubs]: https://github.com/AliSoftware/OHHTTPStubs
 [nimble]: https://github.com/Quick/Nimble
 [testDoubles]: http://www.martinfowler.com/bliki/TestDouble.html
 [jsonplaceholder]: http://jsonplaceholder.typicode.com/
