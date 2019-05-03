@@ -9,7 +9,6 @@
 import Foundation
 import Nimble
 import XCTest
-import Result
 import OHHTTPStubs
 @testable import KataTODOAPIClient
 
@@ -58,8 +57,8 @@ class TODOAPIClientTests: XCTestCase {
             result = response
         }
 
-        expect(result?.value?.count).toEventually(equal(200))
-        assertTaskContainsExpectedValues((result?.value?[0])!)
+        expect{ try? result?.get().count }.toEventually(equal(200))
+        assertTaskContainsExpectedValues((try! result?.get()[0])!)
     }
 
     func testReturnsNetworkErrorIfThereIsNoConnectionGettingAllTasks() {
@@ -75,7 +74,7 @@ class TODOAPIClientTests: XCTestCase {
             result = response
         }
 
-        expect(result?.error).toEventually(equal(TODOAPIClientError.networkError))
+        expect{ try result?.get() }.toEventually(throwError(TODOAPIClientError.networkError))
     }
 
     func testReturnsUnknowErrorIfTheErrorIsNotHandledGettingAllTasks() {
@@ -90,7 +89,7 @@ class TODOAPIClientTests: XCTestCase {
             result = response
         }
 
-        expect(result?.error).toEventually(equal(TODOAPIClientError.unknownError(code: 418)))
+        expect{ try result?.get() }.toEventually(throwError(TODOAPIClientError.unknownError(code: 418)))
     }
 
     func testParsesTaskProperlyGettingTaskById() {
@@ -107,7 +106,7 @@ class TODOAPIClientTests: XCTestCase {
         }
 
         expect(result).toEventuallyNot(beNil())
-        assertTaskContainsExpectedValues((result?.value)!)
+        assertTaskContainsExpectedValues((try! result?.get())!)
     }
 
     func testReturnsItemNotFoundErrorIfTheTaskIdDoesNotExist() {
@@ -122,7 +121,7 @@ class TODOAPIClientTests: XCTestCase {
             result = response
         }
 
-        expect(result?.error).toEventually(equal(TODOAPIClientError.itemNotFound))
+        expect{ try result?.get() }.toEventually(throwError(TODOAPIClientError.itemNotFound))
     }
 
     func testReturnsNetworkErrorIfThereIsNoConnectionGettingTaskById() {
@@ -138,7 +137,7 @@ class TODOAPIClientTests: XCTestCase {
             result = response
         }
 
-        expect(result?.error).toEventually(equal(TODOAPIClientError.networkError))
+        expect{ try result?.get() }.toEventually(throwError(TODOAPIClientError.networkError))
     }
 
     func testReturnsUnknowErrorIfTheErrorIsNotHandledGettingTasksById() {
@@ -153,7 +152,7 @@ class TODOAPIClientTests: XCTestCase {
             result = response
         }
 
-        expect(result?.error).toEventually(equal(TODOAPIClientError.unknownError(code: 418)))
+        expect{ try result?.get() }.toEventually(throwError(TODOAPIClientError.unknownError(code: 418)))
     }
 
     func testSendsTheCorrectBodyAddingANewTask() {
@@ -173,7 +172,7 @@ class TODOAPIClientTests: XCTestCase {
         }
 
         expect(result).toEventuallyNot(beNil())
-        expect(result?.error).toEventually(beNil())
+        expect{ try result?.get() }.toEventuallyNot(throwError())
     }
 
     func testParsesTheTaskCreatedProperlyAddingANewTask() {
@@ -190,7 +189,7 @@ class TODOAPIClientTests: XCTestCase {
         }
 
         expect(result).toEventuallyNot(beNil())
-        assertTaskContainsExpectedValues((result?.value)!)
+        assertTaskContainsExpectedValues((try! result?.get())!)
     }
 
     func testReturnsNetworkErrorIfThereIsNoConnectionAddingATask() {
@@ -206,7 +205,7 @@ class TODOAPIClientTests: XCTestCase {
             result = response
         }
 
-        expect(result?.error).toEventually(equal(TODOAPIClientError.networkError))
+        expect{ try result?.get() }.toEventually(throwError(TODOAPIClientError.networkError))
     }
 
     func testReturnsUnknowErrorIfThereIsAnyErrorAddingATask() {
@@ -221,7 +220,7 @@ class TODOAPIClientTests: XCTestCase {
             result = response
         }
 
-        expect(result?.error).toEventually(equal(TODOAPIClientError.unknownError(code: 418)))
+        expect{ try result?.get() }.toEventually(throwError(TODOAPIClientError.unknownError(code: 418)))
     }
 
     func testSendsTheRequestToTheCorrectPathDeletingATask() {
@@ -237,7 +236,7 @@ class TODOAPIClientTests: XCTestCase {
         }
 
         expect(result).toEventuallyNot(beNil())
-        expect(result?.error).to(beNil())
+        expect{ try result?.get() }.toNot(throwError())
     }
 
     func testReturnsItemNotFoundIfThereIsNoTaskWithIdTheAssociateId() {
@@ -252,7 +251,7 @@ class TODOAPIClientTests: XCTestCase {
             result = response
         }
 
-        expect(result?.error).toEventually(equal(TODOAPIClientError.itemNotFound))
+        expect{ try result?.get() }.toEventually(throwError(TODOAPIClientError.itemNotFound))
     }
 
     func testReturnsNetworkErrorIfThereIsNoConnectionDeletingTask() {
@@ -268,7 +267,7 @@ class TODOAPIClientTests: XCTestCase {
             result = response
         }
 
-        expect(result?.error).toEventually(equal(TODOAPIClientError.networkError))
+        expect{ try result?.get() }.toEventually(throwError(TODOAPIClientError.networkError))
     }
 
     func testReturnsUnknownErrorIfThereIsAnyErrorDeletingTask() {
@@ -283,7 +282,7 @@ class TODOAPIClientTests: XCTestCase {
             result = response
         }
 
-        expect(result?.error).toEventually(equal(TODOAPIClientError.unknownError(code: 418)))
+        expect{ try result?.get() }.toEventually(throwError(TODOAPIClientError.unknownError(code: 418)))
     }
 
     func testSendsTheExpectedBodyUpdatingATask() {
@@ -320,7 +319,7 @@ class TODOAPIClientTests: XCTestCase {
         }
 
         expect(result).toEventuallyNot(beNil())
-        assertUpdatedTaskContainsExpectedValues((result?.value)!)
+        assertUpdatedTaskContainsExpectedValues((try! result?.get())!)
     }
 
     func testReturnsNetworkErrorIfThereIsNoConnectionUpdatingATask() {
@@ -336,7 +335,7 @@ class TODOAPIClientTests: XCTestCase {
             result = response
         }
 
-        expect(result?.error).toEventually(equal(TODOAPIClientError.networkError))
+        expect{ try result?.get() }.toEventually(throwError(TODOAPIClientError.networkError))
     }
 
     func testReturnsItemNotFoundErrorIfThereIsNoTaksToUpdateWithTheUsedId() {
@@ -351,7 +350,7 @@ class TODOAPIClientTests: XCTestCase {
             result = response
         }
 
-        expect(result?.error).toEventually(equal(TODOAPIClientError.itemNotFound))
+        expect{ try result?.get() }.toEventually(throwError(TODOAPIClientError.itemNotFound))
     }
 
     func testReturnsUnknowErrorIfThereIsAnyHandledErrorUpdatingATask() {
@@ -366,7 +365,7 @@ class TODOAPIClientTests: XCTestCase {
             result = response
         }
 
-        expect(result?.error).toEventually(equal(TODOAPIClientError.unknownError(code: 418)))
+        expect{ try result?.get() }.toEventually(throwError(TODOAPIClientError.unknownError(code: 418)))
     }
 
     fileprivate func assertTaskContainsExpectedValues(_ task: TaskDTO) {
