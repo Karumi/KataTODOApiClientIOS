@@ -2,13 +2,10 @@ platform :ios, '11.0'
 use_frameworks!
 
 target 'KataTODOAPIClient' do
-    pod 'BothamNetworking', '4.0.2'
+    pod 'BothamNetworking', :git => 'https://github.com/Karumi/BothamNetworking.git', :branch => 'swift5'
 end
 
 target 'KataTODOAPIClientTests' do
     pod 'OHHTTPStubs/Swift'
-    pod 'Nimble', '7.3.2'
+    pod 'Nimble'
 end
-
-
-
