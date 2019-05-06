@@ -35,7 +35,7 @@ class TODOAPIClientTests: XCTestCase {
             isHost("jsonplaceholder.typicode.com") &&
             hasHeaderNamed("Content-Type", value: "application/json") &&
             isPath("/todos")) { _ in
-                return fixture(filePath: "", status: 200, headers: ["Accept": "application/json"])
+                return fixture(filePath: "", status: 200, headers: ["Content-Type": "application/json"])
         }
 
         var result: Result<[TaskDTO], TODOAPIClientError>?
