@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Result
 import BothamNetworking
 
 public enum TODOAPIClientError: Error {
@@ -18,9 +17,9 @@ public enum TODOAPIClientError: Error {
 
 }
 
-extension Result where Error == BothamAPIClientError {
+extension Result where Failure == BothamAPIClientError {
 
-    func mapErrorToTODOAPIClientError() -> Result<Value, TODOAPIClientError> {
+    func mapErrorToTODOAPIClientError() -> Result<Success, TODOAPIClientError> {
         return mapError { error in
             switch error {
             case BothamAPIClientError.httpResponseError(404, _):
