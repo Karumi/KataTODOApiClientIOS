@@ -21,7 +21,7 @@ DEPENDENCIES:
   - OHHTTPStubs/Swift
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - Nimble
     - OHHTTPStubs
 
@@ -42,4 +42,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 48d67c0858a243671ee04f3a296b85396943fcef
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.8.1
