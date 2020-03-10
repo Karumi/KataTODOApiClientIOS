@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import BothamNetworking
+import Alamofire
 
 public enum TODOAPIClientError: Error {
 
@@ -17,14 +17,14 @@ public enum TODOAPIClientError: Error {
 
 }
 
-extension Result where Failure == BothamAPIClientError {
+extension Result where Failure == AFError {
 
     func mapErrorToTODOAPIClientError() -> Result<Success, TODOAPIClientError> {
         return mapError { error in
             switch error {
-            case BothamAPIClientError.httpResponseError(404, _):
+            case .responseValidationFailed(.unacceptableStatusCode(404)):
                 return TODOAPIClientError.itemNotFound
-            case BothamAPIClientError.httpResponseError(let statusCode, _):
+            case .responseValidationFailed(.unacceptableStatusCode(let statusCode)):
                 return TODOAPIClientError.unknownError(code: statusCode)
             default:
                 return TODOAPIClientError.networkError

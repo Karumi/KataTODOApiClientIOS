@@ -28,12 +28,11 @@ class TODOAPIClientTests: XCTestCase {
     }
 
     fileprivate let apiClient = TODOAPIClient()
-    fileprivate let anyTask = TaskDTO(userId: "1", id: "2", title: "Finish this kata", completed: true)
+    fileprivate let anyTask = TaskDTO(userId: 1, id: 2, title: "Finish this kata", completed: true)
 
     func testSendsContentTypeHeader() {
         stub(condition: isMethodGET() &&
             isHost("jsonplaceholder.typicode.com") &&
-            hasHeaderNamed("Content-Type", value: "application/json") &&
             isPath("/todos")) { _ in
                 return fixture(filePath: "", status: 200, headers: ["Accept": "application/json"])
         }
@@ -163,7 +162,7 @@ class TODOAPIClientTests: XCTestCase {
         stub(condition: isMethodPOST() &&
             isHost("jsonplaceholder.typicode.com") &&
             isPath("/todos") &&
-            hasJsonBody(["userId": "1",
+            hasJsonBody(["userId": 1,
                          "title": "Finish this kata",
                          "completed": false])) { _ in
                             let stubPath = OHPathForFile("addTaskToUserResponse.json", type(of: self))
@@ -173,7 +172,7 @@ class TODOAPIClientTests: XCTestCase {
         }
 
         var result: Result<TaskDTO, TODOAPIClientError>?
-        apiClient.addTaskToUser("1", title: "Finish this kata", completed: false) { response in
+        apiClient.addTaskToUser(1, title: "Finish this kata", completed: false) { response in
             result = response
         }
 
@@ -190,7 +189,7 @@ class TODOAPIClientTests: XCTestCase {
         }
 
         var result: Result<TaskDTO, TODOAPIClientError>?
-        apiClient.addTaskToUser("1", title: "delectus aut autem", completed: false) { response in
+        apiClient.addTaskToUser(1, title: "delectus aut autem", completed: false) { response in
             result = response
         }
 
@@ -208,7 +207,7 @@ class TODOAPIClientTests: XCTestCase {
         }
 
         var result: Result<TaskDTO, TODOAPIClientError>?
-        apiClient.addTaskToUser("1", title: "delectus aut autem", completed: false) { response in
+        apiClient.addTaskToUser(1, title: "delectus aut autem", completed: false) { response in
             result = response
         }
 
@@ -223,7 +222,7 @@ class TODOAPIClientTests: XCTestCase {
         }
 
         var result: Result<TaskDTO, TODOAPIClientError>?
-        apiClient.addTaskToUser("1", title: "delectus aut autem", completed: false) { response in
+        apiClient.addTaskToUser(1, title: "delectus aut autem", completed: false) { response in
             result = response
         }
 
@@ -297,8 +296,8 @@ class TODOAPIClientTests: XCTestCase {
         stub(condition: isMethodPUT() &&
             isHost("jsonplaceholder.typicode.com") &&
             isPath("/todos/2") &&
-            hasJsonBody(["id": "2",
-                         "userId": "1",
+            hasJsonBody(["id": 2,
+                         "userId": 1,
                          "title": "Finish this kata",
                          "completed": true])) { _ in
                             let stubPath = OHPathForFile("updateTaskResponse.json", type(of: self))
@@ -382,15 +381,15 @@ class TODOAPIClientTests: XCTestCase {
     }
 
     fileprivate func assertTaskContainsExpectedValues(_ task: TaskDTO) {
-        expect(task.id).to(equal("1"))
-        expect(task.userId).to(equal("1"))
+        expect(task.id).to(equal(1))
+        expect(task.userId).to(equal(1))
         expect(task.title).to(equal("delectus aut autem"))
         expect(task.completed).to(beFalse())
     }
 
     fileprivate func assertUpdatedTaskContainsExpectedValues(_ task: TaskDTO) {
-        expect(task.id).to(equal("2"))
-        expect(task.userId).to(equal("1"))
+        expect(task.id).to(equal(2))
+        expect(task.userId).to(equal(1))
         expect(task.title).to(equal("Finish this kata"))
         expect(task.completed).to(beTrue())
     }

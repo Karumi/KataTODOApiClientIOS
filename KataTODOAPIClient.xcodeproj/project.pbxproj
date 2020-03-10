@@ -13,7 +13,6 @@
 		EB28C87C1C6DD72A004A5E74 /* TODOAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C87B1C6DD72A004A5E74 /* TODOAPIClient.swift */; };
 		EB28C87F1C6DD772004A5E74 /* TODOAPIClientConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C87E1C6DD772004A5E74 /* TODOAPIClientConfig.swift */; };
 		EB28C8811C6DD7CA004A5E74 /* TaskDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C8801C6DD7CA004A5E74 /* TaskDTO.swift */; };
-		EB28C8851C6DDA56004A5E74 /* DefaultHeadersRequestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C8841C6DDA56004A5E74 /* DefaultHeadersRequestInterceptor.swift */; };
 		EB28C8881C6DDB1F004A5E74 /* TODOAPIClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C8871C6DDB1F004A5E74 /* TODOAPIClientError.swift */; };
 		EB2B5E8F1E657C8A00B62211 /* KataTODOAPIClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB28C8611C6DD32A004A5E74 /* KataTODOAPIClient.framework */; };
 		EB2B5E961E657D4100B62211 /* TODOAPIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28C88E1C6DF13D004A5E74 /* TODOAPIClientTests.swift */; };
@@ -54,7 +53,6 @@
 		EB28C87B1C6DD72A004A5E74 /* TODOAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TODOAPIClient.swift; sourceTree = "<group>"; };
 		EB28C87E1C6DD772004A5E74 /* TODOAPIClientConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TODOAPIClientConfig.swift; sourceTree = "<group>"; };
 		EB28C8801C6DD7CA004A5E74 /* TaskDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskDTO.swift; sourceTree = "<group>"; };
-		EB28C8841C6DDA56004A5E74 /* DefaultHeadersRequestInterceptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultHeadersRequestInterceptor.swift; sourceTree = "<group>"; };
 		EB28C8871C6DDB1F004A5E74 /* TODOAPIClientError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TODOAPIClientError.swift; sourceTree = "<group>"; };
 		EB28C88B1C6DDE7B004A5E74 /* TODOAPIClientPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = TODOAPIClientPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		EB28C88E1C6DF13D004A5E74 /* TODOAPIClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TODOAPIClientTests.swift; sourceTree = "<group>"; };
@@ -143,7 +141,6 @@
 			children = (
 				EB28C87B1C6DD72A004A5E74 /* TODOAPIClient.swift */,
 				EB28C87E1C6DD772004A5E74 /* TODOAPIClientConfig.swift */,
-				EB28C8831C6DDA3A004A5E74 /* Interceptors */,
 				EB28C87D1C6DD760004A5E74 /* DTOs */,
 				EB28C8861C6DDB0E004A5E74 /* Errors */,
 				EB28C8641C6DD32A004A5E74 /* KataTODOAPIClient.h */,
@@ -158,14 +155,6 @@
 				EB28C8801C6DD7CA004A5E74 /* TaskDTO.swift */,
 			);
 			name = DTOs;
-			sourceTree = "<group>";
-		};
-		EB28C8831C6DDA3A004A5E74 /* Interceptors */ = {
-			isa = PBXGroup;
-			children = (
-				EB28C8841C6DDA56004A5E74 /* DefaultHeadersRequestInterceptor.swift */,
-			);
-			name = Interceptors;
 			sourceTree = "<group>";
 		};
 		EB28C8861C6DDB0E004A5E74 /* Errors */ = {
@@ -371,13 +360,13 @@
 				"${PODS_ROOT}/Target Support Files/Pods-KataTODOAPIClientTests/Pods-KataTODOAPIClientTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
 				"${BUILT_PRODUCTS_DIR}/OHHTTPStubs/OHHTTPStubs.framework",
-				"${BUILT_PRODUCTS_DIR}/BothamNetworking/BothamNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nimble.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OHHTTPStubs.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BothamNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -394,7 +383,6 @@
 				EB28C8811C6DD7CA004A5E74 /* TaskDTO.swift in Sources */,
 				EB28C87C1C6DD72A004A5E74 /* TODOAPIClient.swift in Sources */,
 				EB28C8881C6DDB1F004A5E74 /* TODOAPIClientError.swift in Sources */,
-				EB28C8851C6DDA56004A5E74 /* DefaultHeadersRequestInterceptor.swift in Sources */,
 				EB28C87F1C6DD772004A5E74 /* TODOAPIClientConfig.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
