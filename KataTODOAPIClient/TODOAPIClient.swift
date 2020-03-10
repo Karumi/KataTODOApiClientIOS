@@ -7,42 +7,52 @@
 //
 
 import Foundation
-import BothamNetworking
+import Alamofire
 
 open class TODOAPIClient {
 
-    fileprivate let apiClient: BothamAPIClient
-
     public init() {
-        self.apiClient = BothamAPIClient(baseEndpoint: TODOAPIClientConfig.baseEndpoint)
-        self.apiClient.requestInterceptors.append(DefaultHeadersInterceptor())
     }
 
     open func getAllTasks(_ completion: @escaping (Result<[TaskDTO], TODOAPIClientError>) -> Void) {
-        apiClient.GET(TODOAPIClientConfig.tasksEndpoint) { result in
-            completion(result.mapJSON().mapErrorToTODOAPIClientError())
+        AF.request(TODOAPIClientConfig.tasksEndpoint)
+            .validate()
+            .responseDecodable { response in
+            return completion(response.result.mapErrorToTODOAPIClientError())
         }
     }
 
     open func getTaskById(_ id: String, completion: @escaping (Result<TaskDTO, TODOAPIClientError>) -> Void) {
-        apiClient.GET("\(TODOAPIClientConfig.tasksEndpoint)/\(id)") { result in
-            completion(result.mapJSON().mapErrorToTODOAPIClientError())
+        AF.request("\(TODOAPIClientConfig.tasksEndpoint)/\(id)")
+            .validate()
+            .responseDecodable { response in
+            completion(response.result.mapErrorToTODOAPIClientError())
         }
     }
 
-    open func addTaskToUser(_ userId: String, title: String, completed: Bool,
+    open func addTaskToUser(_ userId: Int, title: String, completed: Bool,
                             completion: @escaping (Result<TaskDTO, TODOAPIClientError>) -> Void) {
-        apiClient.POST(TODOAPIClientConfig.tasksEndpoint,
-            body: ["userId": userId as AnyObject,
-                    "title": title as AnyObject,
-                    "completed": completed as AnyObject]) { result in
-            completion(result.mapJSON().mapErrorToTODOAPIClientError())
+        struct AddTaskToUserParameters: Encodable {
+            let userId: Int
+            let title: String
+            let completed: Bool
         }
+        AF.request(TODOAPIClientConfig.tasksEndpoint, method: .post,
+                   parameters: AddTaskToUserParameters(
+                    userId: userId,
+                    title: title,
+                    completed: completed), encoder: JSONParameterEncoder.default)
+            .validate()
+            .responseDecodable { response in
+                completion(response.result.mapErrorToTODOAPIClientError())
+            }
     }
 
     open func deleteTaskById(_ id: String, completion: @escaping (Result<Void, TODOAPIClientError>) -> Void) {
-        apiClient.DELETE("\(TODOAPIClientConfig.tasksEndpoint)/\(id)") { result in
-            completion(result.map { _ -> Void in
+        AF.request("\(TODOAPIClientConfig.tasksEndpoint)/\(id)", method: .delete)
+            .validate()
+            .response { (response: AFDataResponse<Data?>) in
+            completion(response.result.map { _ -> Void in
                 return
             }.mapErrorToTODOAPIClientError())
         }
@@ -50,12 +60,11 @@ open class TODOAPIClient {
 
     open func updateTask(_ task: TaskDTO,
                          completion: @escaping (Result<TaskDTO, TODOAPIClientError>) -> Void) {
-            apiClient.PUT("\(TODOAPIClientConfig.tasksEndpoint)/\(task.id)",
-                body: ["id": task.id as AnyObject,
-                    "userId": task.userId as AnyObject,
-                    "title": task.title as AnyObject,
-                    "completed": task.completed as AnyObject]) { result in
-                        completion(result.mapJSON().mapErrorToTODOAPIClientError())
+        AF.request("\(TODOAPIClientConfig.tasksEndpoint)/\(task.id)", method: .put,
+                parameters: task, encoder: JSONParameterEncoder.default)
+            .validate()
+            .responseDecodable { (response: DataResponse<TaskDTO, AFError>) in
+                completion(response.result.mapErrorToTODOAPIClientError())
             }
     }
 

@@ -1,5 +1,5 @@
 PODS:
-  - BothamNetworking (5.0.0)
+  - Alamofire (5.0.2)
   - Nimble (8.0.4)
   - OHHTTPStubs/Core (8.0.0)
   - OHHTTPStubs/Default (8.0.0):
@@ -16,30 +16,21 @@ PODS:
     - OHHTTPStubs/Default
 
 DEPENDENCIES:
-  - BothamNetworking (from `https://github.com/Karumi/BothamNetworking.git`, branch `swift5`)
+  - Alamofire (~> 5.0)
   - Nimble
   - OHHTTPStubs/Swift
 
 SPEC REPOS:
   trunk:
+    - Alamofire
     - Nimble
     - OHHTTPStubs
 
-EXTERNAL SOURCES:
-  BothamNetworking:
-    :branch: swift5
-    :git: https://github.com/Karumi/BothamNetworking.git
-
-CHECKOUT OPTIONS:
-  BothamNetworking:
-    :commit: 2822bf6f847e8f61011e4f58d8b5cda367a629cb
-    :git: https://github.com/Karumi/BothamNetworking.git
-
 SPEC CHECKSUMS:
-  BothamNetworking: 802c0d82586f4fa6b69d4ef05edf2a8faabd4776
+  Alamofire: 3ba7a4db18b4f62c4a1c0e1cb39d7f3d52e10ada
   Nimble: 18d5360282923225d62b09d781f63abc1a0111fc
   OHHTTPStubs: 9cbce6364bec557cc3439aa6bb7514670d780881
 
-PODFILE CHECKSUM: 48d67c0858a243671ee04f3a296b85396943fcef
+PODFILE CHECKSUM: 417ac2f51a13ea415a11e8a74a8983ea5b6578e6
 
-COCOAPODS: 1.8.1
+COCOAPODS: 1.8.4

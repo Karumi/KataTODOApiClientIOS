@@ -10,7 +10,7 @@ import Foundation
 
 struct TODOAPIClientConfig {
 
-    static let baseEndpoint = "http://jsonplaceholder.typicode.com"
-    static let tasksEndpoint = "/todos"
+    private static let baseEndpoint = "https://jsonplaceholder.typicode.com"
+    static let tasksEndpoint = baseEndpoint + "/todos"
 
 }
