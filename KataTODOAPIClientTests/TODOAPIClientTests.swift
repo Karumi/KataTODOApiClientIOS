@@ -28,12 +28,11 @@ class TODOAPIClientTests: XCTestCase {
     }
 
     fileprivate let apiClient = TODOAPIClient()
-    fileprivate let anyTask = TaskDTO(userId: "1", id: "2", title: "Finish this kata", completed: true)
+    fileprivate let anyTask = TaskDTO(userId: 1, id: 2, title: "Finish this kata", completed: true)
 
     func testSendsContentTypeHeader() {
         stub(condition: isMethodGET() &&
             isHost("jsonplaceholder.typicode.com") &&
-            hasHeaderNamed("Content-Type", value: "application/json") &&
             isPath("/todos")) { _ in
                 return fixture(filePath: "", status: 200, headers: ["Accept": "application/json"])
         }
@@ -81,8 +80,8 @@ class TODOAPIClientTests: XCTestCase {
     }
 
     fileprivate func assertTaskContainsExpectedValues(_ task: TaskDTO) {
-        expect(task.id).to(equal("1"))
-        expect(task.userId).to(equal("1"))
+        expect(task.id).to(equal(1))
+        expect(task.userId).to(equal(1))
         expect(task.title).to(equal("delectus aut autem"))
         expect(task.completed).to(beFalse())
     }

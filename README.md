@@ -14,7 +14,7 @@ This repository contains an API client to interact with a remote service we can 
 
 This APIClient is based on one class with name ``TODOAPIClient`` containing some methos to interact with the API. Using this class we can get all the tasks we have created before, get a task using the task id, add a new task, update a task or delete an already created task.
 
-The API client has been implemented using a networking framework named [BothamNetworking][bothamnetworking]. Review the project documentation if needed.
+The API client has been implemented using a networking framework named [Alamofire][alamofire]. Review the project documentation if needed.
 
 ## Tasks
 
@@ -55,24 +55,8 @@ There are some links which can be useful to finish these tasks:
 
 * [Nocilla official documentation][nocilla]
 * [Nimble documentation][nimble]
-* [BothamNetworking documentation][bothamnetworking]
+* [Alamofire documentation][alamofire-documentation]
 * [World-Class Testing Development Pipeline for Android - Part 3][wordl-class-testing-development-pipeline]
-
-# License
-
-Copyright 2016 Karumi
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-  http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
 
 [karumilogo]: https://cloud.githubusercontent.com/assets/858090/11626547/e5a1dc66-9ce3-11e5-908d-537e07e82090.png
 [OHHTTPStubs]: https://github.com/AliSoftware/OHHTTPStubs
@@ -80,4 +64,5 @@ limitations under the License.
 [testDoubles]: http://www.martinfowler.com/bliki/TestDouble.html
 [jsonplaceholder]: http://jsonplaceholder.typicode.com/
 [wordl-class-testing-development-pipeline]: http://blog.karumi.com/world-class-testing-development-pipeline-for-android-part-3/
-[bothamnetworking]: https://github.com/Karumi/BothamNetworking
+[alamofire]: https://github.com/Alamofire/Alamofire
+[alamofire-documentation]: https://alamofire.github.io/Alamofire/
