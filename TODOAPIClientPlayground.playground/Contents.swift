@@ -2,7 +2,6 @@
 
 import PlaygroundSupport
 import KataTODOAPIClient
-import Result
 
 PlaygroundPage.current.needsIndefiniteExecution = true
 
@@ -20,7 +19,7 @@ apiClient.getTaskById("1") { result in
 }
 
 //: Add a new task to a user.
-apiClient.addTaskToUser("1", title: "Finish this kata", completed: false) { result in
+apiClient.addTaskToUser(1, title: "Finish this kata", completed: false) { result in
     print(result)
 }
 
@@ -30,7 +29,7 @@ apiClient.deleteTaskById("1") { result in
 }
 
 //: Update a taks.
-let taskToUpdate = TaskDTO(userId: "1", id: "2", title: "Finish this kata", completed: false)
+let taskToUpdate = TaskDTO(userId: 1, id: 2, title: "Finish this kata", completed: false)
 apiClient.updateTask(taskToUpdate) { result in
     print(result)
 }
