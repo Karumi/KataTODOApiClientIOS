@@ -1,51 +1,33 @@
-//
-//  TODOAPIClientTests.swift
-//  KataTODOAPIClient
-//
-//  Created by Pedro Vicente Gomez on 12/02/16.
-//  Copyright © 2016 Karumi. All rights reserved.
-//
 // swiftlint:disable force_try
 // swiftlint:disable type_body_length
 import Foundation
 import Nimble
 import XCTest
 import OHHTTPStubs
+
 @testable import KataTODOAPIClient
 
 class TODOAPIClientTests: XCTestCase {
-
+    private let apiClient = TODOAPIClient()
+    private let anyTask = TaskDTO(userId: 1, id: 2, title: "Finish this kata", completed: true)
+    
     override func setUp() {
         super.setUp()
-        OHHTTPStubs.onStubMissing { request in
+        continueAfterFailure = false
+        HTTPStubs.setEnabled(true)
+        HTTPStubs.onStubMissing { request in
             XCTFail("Missing stub for \(request)")
         }
     }
 
     override func tearDown() {
-        OHHTTPStubs.removeAllStubs()
+        
+        HTTPStubs.removeAllStubs()
+        HTTPStubs.setEnabled(false)
         super.tearDown()
     }
 
-    fileprivate let apiClient = TODOAPIClient()
-    fileprivate let anyTask = TaskDTO(userId: 1, id: 2, title: "Finish this kata", completed: true)
-
-    func testSendsContentTypeHeader() {
-        stub(condition: isMethodGET() &&
-            isHost("jsonplaceholder.typicode.com") &&
-            isPath("/todos")) { _ in
-                return fixture(filePath: "", status: 200, headers: ["Accept": "application/json"])
-        }
-
-        var result: Result<[TaskDTO], TODOAPIClientError>?
-        apiClient.getAllTasks { response in
-            result = response
-        }
-
-        expect(result).toEventuallyNot(beNil())
-    }
-
-    func testParsesTasksProperlyGettingAllTheTasks() {
+    func testParsesTasksProperlyGettingAllTheTasks() throws {
         stub(condition: isMethodGET() &&
             isHost("jsonplaceholder.typicode.com") &&
             isPath("/todos")) { _ in
@@ -53,30 +35,24 @@ class TODOAPIClientTests: XCTestCase {
                 return fixture(filePath: stubPath!, status: 200, headers: ["Content-Type": "application/json"])
         }
 
-        var result: Result<[TaskDTO], TODOAPIClientError>?
-        apiClient.getAllTasks { response in
-            result = response
-        }
+        let tasks = try apiClient.getAllTasks().get().first!
 
-        expect { try? result?.get().count }.toEventually(equal(200))
-        assertTaskContainsExpectedValues((try! result?.get()[0])!)
+        expect(tasks.count).to(equal(200))
+        assertTaskContainsExpectedValues(tasks.first!)
     }
 
-    func testReturnsNetworkErrorIfThereIsNoConnectionGettingAllTasks() {
+    func testReturnsNetworkErrorIfThereIsNoConnectionGettingAllTasks() throws {
         stub(condition: isMethodGET() &&
             isHost("jsonplaceholder.typicode.com") &&
             isPath("/todos")) { _ in
                 let notConnectedError = NSError(domain: NSURLErrorDomain,
                                                 code: URLError.notConnectedToInternet.rawValue)
-                return OHHTTPStubsResponse(error: notConnectedError)
+                return HTTPStubsResponse(error: notConnectedError)
         }
 
-        var result: Result<[TaskDTO], TODOAPIClientError>?
-        apiClient.getAllTasks { response in
-            result = response
-        }
-
-        expect { try result?.get() }.toEventually(throwError(TODOAPIClientError.networkError))
+        expect {
+            try self.apiClient.getAllTasks().get()
+        }.to(throwError(TODOAPIClientError.networkError))
     }
 
     fileprivate func assertTaskContainsExpectedValues(_ task: TaskDTO) {
