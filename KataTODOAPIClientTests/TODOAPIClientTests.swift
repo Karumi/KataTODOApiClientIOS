@@ -1,186 +1,123 @@
-//
-//  TODOAPIClientTests.swift
-//  KataTODOAPIClient
-//
-//  Created by Pedro Vicente Gomez on 12/02/16.
-//  Copyright © 2016 Karumi. All rights reserved.
-//
-// swiftlint:disable force_try
-// swiftlint:disable type_body_length
 import Foundation
 import Nimble
 import XCTest
 import OHHTTPStubs
+
 @testable import KataTODOAPIClient
 
 class TODOAPIClientTests: XCTestCase {
-
+    private let apiClient = TODOAPIClient()
+    private let anyTask = TaskDTO(userId: 1, id: 201, title: "Finish this kata", completed: false)
+    private let expectedFirstTask = TaskDTO(userId: 1, id: 1, title: "delectus aut autem", completed: false)
+    private let expectedAddedTask = TaskDTO(userId: 1, id: 201, title: "Finish this kata", completed: false)
+    
     override func setUp() {
         super.setUp()
-        OHHTTPStubs.onStubMissing { request in
+        continueAfterFailure = false
+        HTTPStubs.setEnabled(true)
+        HTTPStubs.onStubMissing { request in
             XCTFail("Missing stub for \(request)")
         }
     }
 
     override func tearDown() {
-        OHHTTPStubs.removeAllStubs()
+        HTTPStubs.removeAllStubs()
+        HTTPStubs.setEnabled(false)
         super.tearDown()
     }
 
-    fileprivate let apiClient = TODOAPIClient()
-    fileprivate let anyTask = TaskDTO(userId: 1, id: 2, title: "Finish this kata", completed: true)
-
-    func testSendsContentTypeHeader() {
-        stub(condition: isMethodGET() &&
-            isHost("jsonplaceholder.typicode.com") &&
-            isPath("/todos")) { _ in
-                return fixture(filePath: "", status: 200, headers: ["Accept": "application/json"])
-        }
-
-        var result: Result<[TaskDTO], TODOAPIClientError>?
-        apiClient.getAllTasks { response in
-            result = response
-        }
-
-        expect(result).toEventuallyNot(beNil())
-    }
-
-    func testParsesTasksProperlyGettingAllTheTasks() {
+    func testShouldBeAbleToGetAllTasks() throws {
         stub(condition: isMethodGET() &&
             isHost("jsonplaceholder.typicode.com") &&
             isPath("/todos")) { _ in
                 let stubPath = OHPathForFile("getTasksResponse.json", type(of: self))
                 return fixture(filePath: stubPath!, status: 200, headers: ["Content-Type": "application/json"])
         }
+     
+        let tasks = try apiClient.getAllTasks().get().first!
 
-        var result: Result<[TaskDTO], TODOAPIClientError>?
-        apiClient.getAllTasks { response in
-            result = response
-        }
-
-        expect { try? result?.get().count }.toEventually(equal(200))
-        assertTaskContainsExpectedValues((try! result?.get()[0])!)
+        expect(tasks.count).to(equal(200))
+        expect(tasks.first!).to(equal(expectedFirstTask))
     }
 
-    func testReturnsNetworkErrorIfThereIsNoConnectionGettingAllTasks() {
+    func testReturnsNetworkErrorIfThereIsNoConnectionGettingAllTasks() throws {
         stub(condition: isMethodGET() &&
             isHost("jsonplaceholder.typicode.com") &&
             isPath("/todos")) { _ in
                 let notConnectedError = NSError(domain: NSURLErrorDomain,
                                                 code: URLError.notConnectedToInternet.rawValue)
-                return OHHTTPStubsResponse(error: notConnectedError)
+                return HTTPStubsResponse(error: notConnectedError)
         }
 
-        var result: Result<[TaskDTO], TODOAPIClientError>?
-        apiClient.getAllTasks { response in
-            result = response
-        }
-
-        expect { try result?.get() }.toEventually(throwError(TODOAPIClientError.networkError))
+        expect {
+            try self.apiClient.getAllTasks().get()
+        }.to(throwError(TODOAPIClientError.networkError))
     }
 
-    func testReturnsUnknowErrorIfTheErrorIsNotHandledGettingAllTasks() {
+    func testReturnsUnknowErrorIfTheErrorIsNotHandledGettingAllTasks() throws {
         stub(condition: isMethodGET() &&
             isHost("jsonplaceholder.typicode.com") &&
             isPath("/todos")) { _ in
                 return fixture(filePath: "", status: 418, headers: ["Content-Type": "application/json"])
         }
 
-        var result: Result<[TaskDTO], TODOAPIClientError>?
-        apiClient.getAllTasks { response in
-            result = response
-        }
-
-        expect { try result?.get() }.toEventually(throwError(TODOAPIClientError.unknownError(code: 418)))
+        expect {
+            try self.apiClient.getAllTasks().get()
+        }.to(throwError(TODOAPIClientError.unknownError(code: 418)))
     }
 
-    func testParsesTaskProperlyGettingTaskById() {
+    func testShouldBeAbleToGetTasksById() throws {
         stub(condition: isMethodGET() &&
             isHost("jsonplaceholder.typicode.com") &&
             isPath("/todos/1")) { _ in
                 let stubPath = OHPathForFile("getTaskByIdResponse.json", type(of: self))
                 return fixture(filePath: stubPath!, status: 200, headers: ["Content-Type": "application/json"])
         }
+  
+        let task = try apiClient.getTaskById(1).get().first!
 
-        var result: Result<TaskDTO, TODOAPIClientError>?
-        apiClient.getTaskById("1") { response in
-            result = response
-        }
-
-        expect(result).toEventuallyNot(beNil())
-        assertTaskContainsExpectedValues((try! result?.get())!)
+        expect(task).to(equal(expectedFirstTask))
     }
 
-    func testReturnsItemNotFoundErrorIfTheTaskIdDoesNotExist() {
+    func testReturnsItemNotFoundErrorIfTheTaskIdDoesNotExist() throws {
         stub(condition: isMethodGET() &&
             isHost("jsonplaceholder.typicode.com") &&
             isPath("/todos/1")) { _ in
                 return fixture(filePath: "", status: 404, headers: ["Content-Type": "application/json"])
         }
 
-        var result: Result<TaskDTO, TODOAPIClientError>?
-        apiClient.getTaskById("1") { response in
-            result = response
-        }
-
-        expect { try result?.get() }.toEventually(throwError(TODOAPIClientError.itemNotFound))
+        expect {
+            try self.apiClient.getTaskById(1).get()
+        }.to(throwError(TODOAPIClientError.itemNotFound))
     }
 
-    func testReturnsNetworkErrorIfThereIsNoConnectionGettingTaskById() {
+    func testReturnsNetworkErrorIfThereIsNoConnectionGettingTaskById() throws {
         stub(condition: isMethodGET() &&
             isHost("jsonplaceholder.typicode.com") &&
             isPath("/todos/1")) { _ in
                 let notConnectedError = NSError(domain: NSURLErrorDomain,
                                                 code: URLError.notConnectedToInternet.rawValue)
-                return OHHTTPStubsResponse(error: notConnectedError)
+                return HTTPStubsResponse(error: notConnectedError)
         }
 
-        var result: Result<TaskDTO, TODOAPIClientError>?
-        apiClient.getTaskById("1") { response in
-            result = response
-        }
-
-        expect { try result?.get() }.toEventually(throwError(TODOAPIClientError.networkError))
+        expect {
+            try self.apiClient.getTaskById(1).get()
+        }.to(throwError(TODOAPIClientError.networkError))
     }
 
-    func testReturnsUnknowErrorIfTheErrorIsNotHandledGettingTasksById() {
+    func testReturnsUnknowErrorIfTheErrorIsNotHandledGettingTasksById() throws {
         stub(condition: isMethodGET() &&
             isHost("jsonplaceholder.typicode.com") &&
             isPath("/todos/1")) { _ in
                 return fixture(filePath: "", status: 418, headers: ["Content-Type": "application/json"])
         }
 
-        var result: Result<TaskDTO, TODOAPIClientError>?
-        apiClient.getTaskById("1") { response in
-            result = response
-        }
-
-        expect { try result?.get() }.toEventually(throwError(TODOAPIClientError.unknownError(code: 418)))
+        expect {
+            try self.apiClient.getTaskById(1).get()
+        }.to(throwError(TODOAPIClientError.unknownError(code: 418)))
     }
 
-    func testSendsTheCorrectBodyAddingANewTask() {
-        stub(condition: isMethodPOST() &&
-            isHost("jsonplaceholder.typicode.com") &&
-            isPath("/todos") &&
-            hasJsonBody(["userId": 1,
-                         "title": "Finish this kata",
-                         "completed": false])) { _ in
-                            let stubPath = OHPathForFile("addTaskToUserResponse.json", type(of: self))
-                            return fixture(filePath: stubPath!,
-                                           status: 201,
-                                           headers: ["Content-Type": "application/json"])
-        }
-
-        var result: Result<TaskDTO, TODOAPIClientError>?
-        apiClient.addTaskToUser(1, title: "Finish this kata", completed: false) { response in
-            result = response
-        }
-
-        expect(result).toEventuallyNot(beNil())
-        expect { try result?.get() }.toEventuallyNot(throwError())
-    }
-
-    func testParsesTheTaskCreatedProperlyAddingANewTask() {
+    func testShouldBeAbleToAddANewTask() throws {
         stub(condition: isMethodPOST() &&
             isHost("jsonplaceholder.typicode.com") &&
             isPath("/todos")) { _ in
@@ -188,61 +125,42 @@ class TODOAPIClientTests: XCTestCase {
                 return fixture(filePath: stubPath!, status: 201, headers: ["Content-Type": "application/json"])
         }
 
-        var result: Result<TaskDTO, TODOAPIClientError>?
-        apiClient.addTaskToUser(1, title: "delectus aut autem", completed: false) { response in
-            result = response
-        }
+        let task = try apiClient.addTaskToUser(1, title: "delectus aut autem", completed: false).get().first!
 
-        expect(result).toEventuallyNot(beNil())
-        assertTaskContainsExpectedValues((try! result?.get())!)
+        expect(task).to(equal(expectedAddedTask))
     }
 
-    func testReturnsNetworkErrorIfThereIsNoConnectionAddingATask() {
+    func testReturnsNetworkErrorIfThereIsNoConnectionAddingATask() throws {
         stub(condition: isMethodPOST() &&
             isHost("jsonplaceholder.typicode.com") &&
             isPath("/todos")) { _ in
                 let notConnectedError = NSError(domain: NSURLErrorDomain,
                                                 code: URLError.notConnectedToInternet.rawValue)
-                return OHHTTPStubsResponse(error: notConnectedError)
+                return HTTPStubsResponse(error: notConnectedError)
         }
 
-        var result: Result<TaskDTO, TODOAPIClientError>?
-        apiClient.addTaskToUser(1, title: "delectus aut autem", completed: false) { response in
-            result = response
-        }
-
-        expect { try result?.get() }.toEventually(throwError(TODOAPIClientError.networkError))
+        expect { try self.apiClient.addTaskToUser(1, title: "delectus aut autem", completed: false).get() }.to(throwError(TODOAPIClientError.networkError))
     }
 
-    func testReturnsUnknowErrorIfThereIsAnyErrorAddingATask() {
+    func testReturnsUnknowErrorIfThereIsAnyErrorAddingATask() throws {
         stub(condition: isMethodPOST() &&
             isHost("jsonplaceholder.typicode.com") &&
             isPath("/todos")) { _ in
                 return fixture(filePath: "", status: 418, headers: ["Content-Type": "application/json"])
         }
 
-        var result: Result<TaskDTO, TODOAPIClientError>?
-        apiClient.addTaskToUser(1, title: "delectus aut autem", completed: false) { response in
-            result = response
-        }
-
-        expect { try result?.get() }.toEventually(throwError(TODOAPIClientError.unknownError(code: 418)))
+        expect { try self.apiClient.addTaskToUser(1, title: "delectus aut autem", completed: false).get()
+        }.to(throwError(TODOAPIClientError.unknownError(code: 418)))
     }
 
-    func testSendsTheRequestToTheCorrectPathDeletingATask() {
+    func testShouldBeAbleToDeleteATask() throws {
         stub(condition: isMethodDELETE() &&
             isHost("jsonplaceholder.typicode.com") &&
             isPath("/todos/1")) { _ in
                 return fixture(filePath: "", status: 200, headers: ["Content-Type": "application/json"])
         }
 
-        var result: Result<Void, TODOAPIClientError>?
-        apiClient.deleteTaskById("1") { response in
-            result = response
-        }
-
-        expect(result).toEventuallyNot(beNil())
-        expect { try result?.get() }.toNot(throwError())
+        let _ = try apiClient.deleteTaskById(1).get()
     }
 
     func testReturnsItemNotFoundIfThereIsNoTaskWithIdTheAssociateId() {
@@ -252,69 +170,38 @@ class TODOAPIClientTests: XCTestCase {
                 return fixture(filePath: "", status: 404, headers: ["Content-Type": "application/json"])
         }
 
-        var result: Result<Void, TODOAPIClientError>?
-        apiClient.deleteTaskById("1") { response in
-            result = response
-        }
-
-        expect { try result?.get() }.toEventually(throwError(TODOAPIClientError.itemNotFound))
+        expect {
+            try self.apiClient.deleteTaskById(1).get()
+        }.to(throwError(TODOAPIClientError.itemNotFound))
     }
 
-    func testReturnsNetworkErrorIfThereIsNoConnectionDeletingTask() {
+    func testReturnsNetworkErrorIfThereIsNoConnectionDeletingTask() throws {
         stub(condition: isMethodDELETE() &&
             isHost("jsonplaceholder.typicode.com") &&
             isPath("/todos/1")) { _ in
                 let notConnectedError = NSError(domain: NSURLErrorDomain,
                                                 code: URLError.notConnectedToInternet.rawValue)
-                return OHHTTPStubsResponse(error: notConnectedError)
+                return HTTPStubsResponse(error: notConnectedError)
         }
-
-        var result: Result<Void, TODOAPIClientError>?
-        apiClient.deleteTaskById("1") { response in
-            result = response
-        }
-
-        expect { try result?.get() }.toEventually(throwError(TODOAPIClientError.networkError))
+        
+        expect {
+            try self.apiClient.deleteTaskById(1).get()
+        }.to(throwError(TODOAPIClientError.networkError))
     }
 
-    func testReturnsUnknownErrorIfThereIsAnyErrorDeletingTask() {
+    func testReturnsUnknownErrorIfThereIsAnyErrorDeletingTask() throws {
         stub(condition: isMethodDELETE() &&
             isHost("jsonplaceholder.typicode.com") &&
             isPath("/todos/1")) { _ in
                 return fixture(filePath: "", status: 418, headers: ["Content-Type": "application/json"])
         }
 
-        var result: Result<Void, TODOAPIClientError>?
-        apiClient.deleteTaskById("1") { response in
-            result = response
-        }
-
-        expect { try result?.get() }.toEventually(throwError(TODOAPIClientError.unknownError(code: 418)))
+        expect {
+            try self.apiClient.deleteTaskById(1).get()
+        }.to(throwError(TODOAPIClientError.unknownError(code: 418)))
     }
 
-    func testSendsTheExpectedBodyUpdatingATask() {
-        stub(condition: isMethodPUT() &&
-            isHost("jsonplaceholder.typicode.com") &&
-            isPath("/todos/2") &&
-            hasJsonBody(["id": 2,
-                         "userId": 1,
-                         "title": "Finish this kata",
-                         "completed": true])) { _ in
-                            let stubPath = OHPathForFile("updateTaskResponse.json", type(of: self))
-                            return fixture(filePath: stubPath!,
-                                           status: 200,
-                                           headers: ["Content-Type": "application/json"])
-        }
-
-        var result: Result<TaskDTO, TODOAPIClientError>?
-        apiClient.updateTask(anyTask) { response in
-            result = response
-        }
-
-        expect(result).toEventuallyNot(beNil())
-    }
-
-    func testParsesTheTaskProperlyUpdatingATask() {
+    func testShouldBeAbleToUpdateATask() throws {
         stub(condition: isMethodPUT() &&
             isHost("jsonplaceholder.typicode.com") &&
             isPath("/todos/\(anyTask.id)")) { _ in
@@ -322,45 +209,35 @@ class TODOAPIClientTests: XCTestCase {
                 return fixture(filePath: stubPath!, status: 200, headers: ["Content-Type": "application/json"])
         }
 
-        var result: Result<TaskDTO, TODOAPIClientError>?
-        apiClient.updateTask(anyTask) { response in
-            result = response
-        }
+        let task = try apiClient.updateTask(anyTask).get().first!
 
-        expect(result).toEventuallyNot(beNil())
-        assertUpdatedTaskContainsExpectedValues((try! result?.get())!)
+        expect(task).to(equal(anyTask))
     }
 
-    func testReturnsNetworkErrorIfThereIsNoConnectionUpdatingATask() {
+    func testReturnsNetworkErrorIfThereIsNoConnectionUpdatingATask() throws {
         stub(condition: isMethodPUT() &&
             isHost("jsonplaceholder.typicode.com") &&
             isPath("/todos/\(anyTask.id)")) { _ in
                 let notConnectedError = NSError(domain: NSURLErrorDomain,
                                                 code: URLError.notConnectedToInternet.rawValue)
-                return OHHTTPStubsResponse(error: notConnectedError)
+                return HTTPStubsResponse(error: notConnectedError)
         }
 
-        var result: Result<TaskDTO, TODOAPIClientError>?
-        apiClient.updateTask(anyTask) { response in
-            result = response
-        }
-
-        expect { try result?.get() }.toEventually(throwError(TODOAPIClientError.networkError))
+        expect {
+            try self.apiClient.updateTask(self.anyTask).get()
+        }.to(throwError(TODOAPIClientError.networkError))
     }
 
-    func testReturnsItemNotFoundErrorIfThereIsNoTaksToUpdateWithTheUsedId() {
+    func testReturnsItemNotFoundErrorIfThereIsNoTaksToUpdateWithTheUsedId() throws {
         stub(condition: isMethodPUT() &&
             isHost("jsonplaceholder.typicode.com") &&
             isPath("/todos/\(anyTask.id)")) { _ in
                 return fixture(filePath: "", status: 404, headers: ["Content-Type": "application/json"])
         }
 
-        var result: Result<TaskDTO, TODOAPIClientError>?
-        apiClient.updateTask(anyTask) { response in
-            result = response
-        }
-
-        expect { try result?.get() }.toEventually(throwError(TODOAPIClientError.itemNotFound))
+        expect {
+            try self.apiClient.updateTask(self.anyTask).get()
+        }.to(throwError(TODOAPIClientError.itemNotFound))
     }
 
     func testReturnsUnknowErrorIfThereIsAnyHandledErrorUpdatingATask() {
@@ -372,26 +249,8 @@ class TODOAPIClientTests: XCTestCase {
                                headers: ["Content-Type": "application/json"])
         }
 
-        var result: Result<TaskDTO, TODOAPIClientError>?
-        apiClient.updateTask(anyTask) { response in
-            result = response
-        }
-
-        expect { try result?.get() }.toEventually(throwError(TODOAPIClientError.unknownError(code: 418)))
+        expect {
+            try self.apiClient.updateTask(self.anyTask).get()
+        }.to(throwError(TODOAPIClientError.unknownError(code: 418)))
     }
-
-    fileprivate func assertTaskContainsExpectedValues(_ task: TaskDTO) {
-        expect(task.id).to(equal(1))
-        expect(task.userId).to(equal(1))
-        expect(task.title).to(equal("delectus aut autem"))
-        expect(task.completed).to(beFalse())
-    }
-
-    fileprivate func assertUpdatedTaskContainsExpectedValues(_ task: TaskDTO) {
-        expect(task.id).to(equal(2))
-        expect(task.userId).to(equal(1))
-        expect(task.title).to(equal("Finish this kata"))
-        expect(task.completed).to(beTrue())
-    }
-
 }
